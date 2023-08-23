@@ -1,0 +1,29 @@
+import MapIcon from "../atoms/MapIcon.jsx";
+import MapPinIcon from "../atoms/MapPinIcon.jsx";
+import SettingsIcon from "../atoms/SettingsIcon.jsx";
+import UserLogo from "../atoms/UserLogo.jsx";
+import TrophyIcon from "../atoms/TrophyIcon.jsx";
+import { Link } from "react-router-dom";
+
+const iconsLeft = [<UserLogo />, <Link to="/map"><MapIcon /></Link>];
+const iconsRight = [<TrophyIcon />, <SettingsIcon />];
+
+const Navbar = () => {
+    return (
+        <nav className="bg-lw-50 border-t border-t-interfaz-200 h-full">
+            <ul className="flex justify-center items-center h-full gap-6">
+                {iconsLeft.map((icon, index) => (
+                    <li key={index}>{icon}</li>
+                ))}
+                <li className="bg-red-500 border border-interfaz-400 rounded-full p-3 mb-3 relative bottom-1">
+                    <MapPinIcon />
+                </li>
+                {iconsRight.map((icon, index) => (
+                    <li key={index}>{icon}</li>
+                ))}
+            </ul>
+        </nav>
+    );
+};
+
+export default Navbar;
