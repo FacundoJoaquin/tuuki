@@ -1,21 +1,30 @@
+/* eslint-disable react/jsx-key */
 import MapIcon from "../atoms/MapIcon.jsx";
 import MapPinIcon from "../atoms/MapPinIcon.jsx";
 import SettingsIcon from "../atoms/SettingsIcon.jsx";
 import UserLogo from "../atoms/UserLogo.jsx";
 import TrophyIcon from "../atoms/TrophyIcon.jsx";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toggleModal } from "../redux/features/showModal/modalSlice.js";
 
-const iconsLeft = [<UserLogo />, <Link to="/map"><MapIcon /></Link>];
+const iconsLeft = [<Link to="/login"><UserLogo /></Link>, <Link to="/map"><MapIcon /></Link>];
 const iconsRight = [<TrophyIcon />, <SettingsIcon />];
 
 const Navbar = () => {
+    const dispatch = useDispatch();
+
+    const handleModal = () => {
+        dispatch(toggleModal());
+    };
+
     return (
         <nav className="bg-lw-50 border-t border-t-interfaz-200 h-full">
             <ul className="flex justify-center items-center h-full gap-6">
                 {iconsLeft.map((icon, index) => (
                     <li key={index}>{icon}</li>
                 ))}
-                <li className="bg-red-500 border border-interfaz-400 rounded-full p-3 mb-3 relative bottom-1">
+                <li className="bg-red-500 border border-interfaz-400 rounded-full p-3 mb-3 relative bottom-1" onClick={handleModal}>
                     <MapPinIcon />
                 </li>
                 {iconsRight.map((icon, index) => (
@@ -23,7 +32,9 @@ const Navbar = () => {
                 ))}
             </ul>
         </nav>
+
     );
 };
+
 
 export default Navbar;

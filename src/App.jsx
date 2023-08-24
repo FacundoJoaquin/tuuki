@@ -21,8 +21,7 @@ function App() {
             <Route path="/" element={<Welcome />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/login" element={<LogIn />} />
-            {/* Utiliza ProtectedRoute para proteger la ruta "/map" */}
-            <Route element={<ProtectedRoute authorized={userIsAuthorized}/>}> {/* TAMBIEN PUEDO USAR redirectPath para llevar a otro lado */}
+            <Route element={<ProtectedRoute authorized={userIsAuthorized} redirectPath="/login"/>}> {/* TAMBIEN PUEDO USAR redirectPath para llevar a otro lado */}
               <Route path="/map" element={<MapView />} />
             </Route>
           </Routes>
