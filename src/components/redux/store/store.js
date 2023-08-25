@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import createControl from '../features/counter/createControSlicel'
+import createControl from '../features/createControl/createControSlice'
 //import loggedInReducer from '../features/logged/loggedInSlice'
 import modalSlice from '../features/showModal/modalSlice'
 

@@ -7,6 +7,8 @@ const initialState = {
   comment: "",
   startTime: "",
   endTime: "",
+  latitude: "",
+  longitude: "",
 };
 
 export const createControlSlice = createSlice({

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateControl } from "../redux/features/counter/createControSlicel";
+import { updateControl } from "../redux/features/createControl/createControSlice";
 import ExitIcon from "../atoms/ExitIcon"
 import { toggleModal } from "../redux/features/showModal/modalSlice";
 
@@ -13,13 +13,15 @@ const FormControl = () => {
 		comment: "",
 		startTime: "",
 		endTime: "",
+		latitude: "",
+		longitude: "",
 	};
 
 	const [createControl, setCreateControl] = useState(marker);
 	const [comment, setComment] = useState("");
 
 	const handleModalClose = () => {
-		dispatch(toggleModal()); 
+		dispatch(toggleModal());
 	};
 
 	const handleControlType = (controlType) => {
@@ -61,8 +63,32 @@ const FormControl = () => {
 		getTimestamp();
 	};
 
+	useEffect(() => {
+		if ("geolocation" in navigator) {
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					const latitude = position.coords.latitude;
+					const longitude = position.coords.longitude;
+
+					// Agrega el marcador automáticamente cuando obtienes la ubicación
+					setCreateControl((prevCreateControl) => ({
+						...prevCreateControl,
+						latitude: latitude,
+						longitude: longitude,
+					}));
+				},
+				(error) => {
+					console.error("Error obteniendo la ubicación:", error);
+				}
+			);
+		} else {
+			console.error("Geolocalización no disponible");
+		}
+	}, []);
+
+
 	function getTimestamp() {
-		const newTime = new Date(); 
+		const newTime = new Date();
 
 		const currentHour = String(newTime.getHours()).padStart(2, "0");
 		const currentMinute = String(newTime.getMinutes()).padStart(2, "0");
@@ -78,7 +104,7 @@ const FormControl = () => {
 		const endTime = `${endHour}:${endMinute}:${endSecond}`;
 
 		setCreateControl((prevCreateControl) => ({
-			...prevCreateControl, 
+			...prevCreateControl,
 			startTime: startTime,
 			endTime: endTime,
 		}));
@@ -92,6 +118,7 @@ const FormControl = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(updateControl(createControl))
+		dispatch(toggleModal())
 	};
 
 	useEffect(() => {
