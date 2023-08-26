@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { updateControl } from "../redux/features/createControl/createControSlice";
 import ExitIcon from "../atoms/ExitIcon"
 import { toggleModal } from "../redux/features/showModal/modalSlice";
-
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig.js"
 
 const FormControl = () => {
 	const dispatch = useDispatch()
@@ -19,6 +20,14 @@ const FormControl = () => {
 
 	const [createControl, setCreateControl] = useState(marker);
 	const [comment, setComment] = useState("");
+
+	const handlePostControl = async () => {
+		const docRef = await addDoc(collection(db, "controles"), {
+			createControl
+		});
+		console.log("Document written with ID: ", docRef.id);
+
+	}
 
 	const handleModalClose = () => {
 		dispatch(toggleModal());
@@ -118,6 +127,7 @@ const FormControl = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(updateControl(createControl))
+		handlePostControl(createControl);
 		dispatch(toggleModal())
 	};
 

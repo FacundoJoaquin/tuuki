@@ -3,6 +3,7 @@ import "./map.css";
 import { MapContainer, Popup, TileLayer } from "react-leaflet";
 import { useEffect, useState } from "react";
 import { Marker } from "react-leaflet";
+import { doc, setDoc } from "firebase/firestore"; 
 import { Icon } from "leaflet";
 import iconUrl from "../../assets/tuki.png";
 import { useSelector } from "react-redux";
@@ -11,6 +12,7 @@ import controlCanino from "../../assets/controlCanino.png";
 import controlGendarmeria from '../../assets/controlGendarmeria.png';
 import controlAlcohol from '../../assets/controlAlcohol.png'
 import controlPapeles from '../../assets/controlPapeles.png'
+
 
 const marker = {
   geocode: {
@@ -23,6 +25,11 @@ const marker = {
   iconUrl: ''
 }
 let customIcon
+
+const fetchControls = async () => {
+  
+}
+
 const Map = () => {
   const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [pin, setPin] = useState([marker]);
@@ -39,6 +46,8 @@ const Map = () => {
       startTime: getControlRedux.startTime,
       endTime: getControlRedux.endTime,
     }]);
+
+    
 
     switch (getControlRedux.type) {
       case 'controlCanino':
@@ -105,7 +114,7 @@ const Map = () => {
           className="z-10"
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-
+        
           {showState && pin && customIcon &&
             pin.map((marker, index) => (
               <Marker
