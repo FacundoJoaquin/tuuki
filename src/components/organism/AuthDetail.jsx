@@ -22,7 +22,6 @@ export const AuthDetail = () => {
   const userSignOut = () => {
     signOut(auth)
       .then(() => {
-        console.log("sign out succes");
       })
       .catch((error) => console.log(error));
   };

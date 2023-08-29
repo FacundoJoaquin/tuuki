@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { updateControl } from "../redux/features/createControl/createControSlice";
 import ExitIcon from "../atoms/ExitIcon"
 import { toggleModal } from "../redux/features/showModal/modalSlice";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig.js"
 
 const FormControl = () => {
@@ -12,8 +12,7 @@ const FormControl = () => {
 		iconUrl: "",
 		type: "",
 		comment: "",
-		startTime: "",
-		endTime: "",
+		timeStamp: "",
 		latitude: "",
 		longitude: "",
 	};
@@ -21,13 +20,7 @@ const FormControl = () => {
 	const [createControl, setCreateControl] = useState(marker);
 	const [comment, setComment] = useState("");
 
-	const handlePostControl = async () => {
-		const docRef = await addDoc(collection(db, "controles"), {
-			createControl
-		});
-		console.log("Document written with ID: ", docRef.id);
 
-	}
 
 	const handleModalClose = () => {
 		dispatch(toggleModal());
@@ -67,12 +60,14 @@ const FormControl = () => {
 				console.log("error: Unknown control type");
 				break;
 		}
-		console.log(createControl);
 
-		getTimestamp();
 	};
+	
 
 	useEffect(() => {
+		const createdAt = serverTimestamp();
+
+		console.log(createdAt)
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -95,14 +90,25 @@ const FormControl = () => {
 		}
 	}, []);
 
-
-	function getTimestamp() {
+	//TIMESTAMP PARA EL POST
+/* 	const setTimeStamp = () => {
 		const newTime = new Date();
 
 		const currentHour = String(newTime.getHours()).padStart(2, "0");
 		const currentMinute = String(newTime.getMinutes()).padStart(2, "0");
 		const currentSecond = String(newTime.getSeconds()).padStart(2, "0");
-		const startTime = `${currentHour}:${currentMinute}:${currentSecond}`;
+		console.log(newTime)
+	} */
+
+	////////////////////////////////
+
+/* 	function getTimestamp() {
+		const newTime = new Date();
+
+		const currentHour = String(newTime.getHours()).padStart(2, "0");
+		const currentMinute = String(newTime.getMinutes()).padStart(2, "0");
+		const currentSecond = String(newTime.getSeconds()).padStart(2, "0");
+		const timeStamp = `${currentHour}:${currentMinute}:${currentSecond}`;
 
 		newTime.setMinutes(newTime.getMinutes() + 30);
 
@@ -114,11 +120,11 @@ const FormControl = () => {
 
 		setCreateControl((prevCreateControl) => ({
 			...prevCreateControl,
-			startTime: startTime,
+			timeStamp: timeStamp,
 			endTime: endTime,
 		}));
 	}
-
+ */
 	const handleInputComment = (event) => {
 		const newComment = event.target.value;
 		setComment(newComment);
@@ -135,6 +141,7 @@ const FormControl = () => {
 		setCreateControl((prevCreateControl) => ({
 			...prevCreateControl,
 			comment: comment,
+
 		}));
 	}, [comment]);
 
@@ -146,6 +153,18 @@ const FormControl = () => {
 			controlGendarmeria: "../../src/assets/controlGendarmeria.png",
 		},
 	];
+
+	const handlePostControl = async () => {
+		//PUSHEA EL CONTROL A FIRESTORE
+		const createdAt = serverTimestamp();
+		console.log(createdAt);
+		const docRef = await addDoc(collection(db, "controles"), {
+			createControl,
+			timeStamp: createdAt
+		});
+		console.log("Document written with ID: ", docRef.id);
+
+	}
 
 	return (
 		<div className="z-50 flex flex-col items-end h-full py-5 w-full">

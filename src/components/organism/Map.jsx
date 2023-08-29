@@ -3,107 +3,163 @@ import "./map.css";
 import { MapContainer, Popup, TileLayer } from "react-leaflet";
 import { useEffect, useState } from "react";
 import { Marker } from "react-leaflet";
-import { doc, setDoc } from "firebase/firestore"; 
 import { Icon } from "leaflet";
-import iconUrl from "../../assets/tuki.png";
-import { useSelector } from "react-redux";
 import { GetLocation } from "../utils/Functions";
 import controlCanino from "../../assets/controlCanino.png";
 import controlGendarmeria from '../../assets/controlGendarmeria.png';
 import controlAlcohol from '../../assets/controlAlcohol.png'
+import tuki from '../../assets/tuki.png'
 import controlPapeles from '../../assets/controlPapeles.png'
-
-
-const marker = {
-  geocode: {
-    latitude: '',
-    longitude: '',
-  },
-  popUp: '',
-  startTime: '',
-  endTime: '',
-  iconUrl: ''
-}
-let customIcon
-
-const fetchControls = async () => {
-  
-}
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 
 const Map = () => {
   const [location, setLocation] = useState({ latitude: null, longitude: null });
-  const [pin, setPin] = useState([marker]);
+  const [pin, setPin] = useState([]);
   const [showState, setShowState] = useState(false);
-  const getControlRedux = useSelector(state => state.createControl);
-  console.log(getControlRedux);
-  useEffect(() => {
-    setPin([{
-      geocode: {
-        latitude: getControlRedux.latitude,
-        longitude: getControlRedux.longitude,
-      },
-      popUp: getControlRedux.comment,
-      startTime: getControlRedux.startTime,
-      endTime: getControlRedux.endTime,
-    }]);
-
-    
-
-    switch (getControlRedux.type) {
-      case 'controlCanino':
-        customIcon = new Icon({
-          iconUrl: controlCanino,
-          iconSize: [40, 40],
-        });
-        setShowState(true);
-        break;
-      case 'controlGendarmeria':
-        customIcon = new Icon({
-          iconUrl: controlGendarmeria,
-          iconSize: [40, 40],
-        });
-        setShowState(true);
-        break;
-      case 'controlAlcohol':
-        customIcon = new Icon({
-          iconUrl: controlAlcohol,
-          iconSize: [40, 40],
-        });
-        setShowState(true);
-        break;
-      case 'controlPapeles':
-        customIcon = new Icon({
-          iconUrl: controlPapeles,
-          iconSize: [40, 40],
-        });
-        setShowState(true);
-        break;
-
-      default:
-        break;
+  const [controlsFetched, setControlsFetched] = useState([])
+  async function fetchData() {
+    // Obtén la ubicación y actualiza 'location'
+    try {
+      const loc = await GetLocation();
+      setLocation(loc);
+    } catch (error) {
+      console.error("Error al obtener la ubicación:", error);
+      // Maneja el error apropiadamente
     }
-  }, [getControlRedux])
+  }
+  useEffect(() => {
+    fetchData(); // Llama a la función para obtener la ubicación
+    fetchControls()
+  }, []); // El segundo argumento [] asegura que este efecto se ejecute solo una vez
+
+
+  const fetchControls = async () => {
+    const now = new Date();
+    const halfHour = new Date(now.getTime() - 30 * 60000)
+    //TRAE DE FIRESTORE LOS CONTROLES
+    const q = query(
+      collection(db, 'controles'),
+      where('timeStamp', '>', halfHour)
+    );
+
+    try {
+      const querySnapshot = await getDocs(q);
+      const controlesArray = [];
+
+      querySnapshot.forEach((doc) => {
+        const controlData = doc.data();
+        controlesArray.push(controlData);
+      });
+
+      setControlsFetched(controlesArray);
+    } catch (error) {
+      console.error('Error al obtener los documentos:', error);
+    }
+
+  }
+
+  useEffect(() => {
+    handleCreatePins(controlsFetched)
+    setShowState(true)
+  }, [controlsFetched])
 
   useEffect(() => {
     console.log(pin);
   }, [pin])
 
-  useEffect(() => {
-    // Obtén la ubicación y actualiza 'location' y 'pin'
-    async function fetchData() {
-      try {
-        const loc = await GetLocation();
-        setLocation(loc);
-        setShowState(true);
-      } catch (error) {
-        console.error("Error al obtener la ubicación:", error);
-        // Maneja el error apropiadamente
-      }
+  const handleCreatePins = (controls) => {
+    const mapPin = controls.map((control) => {
+      const {
+        comment,
+        type,
+        timeStamp,
+        endTime,
+        iconUrl,
+        latitude,
+        longitude
+      } = control.createControl;
+
+      // Devolvemos un objeto con los datos del pin
+      return {
+        geocode: {
+          latitude,
+          longitude,
+        },
+        popUp: comment,
+        timeStamp,
+        endTime,
+        type,
+        iconUrl,
+      };
+    });
+    setPin([...mapPin])
+  }
+
+  const createCustomIcon = (iconUrl) => {
+    return new Icon({
+      iconUrl: iconUrl,
+      iconSize: [40, 40],
+    });
+  }
+
+  const getIconUrl = (type) => {
+    switch (type) {
+      case 'controlCanino':
+        return controlCanino;
+      case 'controlGendarmeria':
+        return controlGendarmeria;
+      case 'controlAlcohol':
+        return controlAlcohol;
+      case 'controlPapeles':
+        return controlPapeles;
+      default:
+        return null;
     }
+  }
 
-    fetchData(); // Llama a la función para obtener la ubicación
+  const renderMarkers = () => {
+    const tukiIcon = new Icon({
+      iconUrl: tuki,
+      iconSize: [120, 150],
+    });
 
-  }, []); // El segundo argumento [] asegura que este efecto se ejecute solo una vez
+    return showState && pin.map((marker, index) => {
+      const iconUrl = getIconUrl(marker.type);
+      const customIcon = iconUrl ? createCustomIcon(iconUrl) : null;
+      
+      return (
+        <Marker
+          key={index}
+          position={[marker.geocode.latitude, marker.geocode.longitude]}
+          icon={tukiIcon}
+        >
+          <Marker
+            key={index}
+            position={[location.latitude, location.longitude]}
+            icon={customIcon}
+          />
+          <Popup>{marker.popUp}</Popup>
+        </Marker>
+      );
+    });
+  };
+  const [showDefaultLocation, setShowDefaultLocation] = useState(false)
+  const showTuki = () => {
+    const tukiIcon = new Icon({
+      iconUrl: tuki,
+      iconSize: [120, 150],
+    });
+    return (
+      <Marker
+        key={'1234'}
+        position={[location.latitude, location.longitude]}
+        icon={tukiIcon}
+      >
+      </Marker>
+
+    )
+  }
 
   return (
     <div className="z-10 h-full">
@@ -114,17 +170,7 @@ const Map = () => {
           className="z-10"
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        
-          {showState && pin && customIcon &&
-            pin.map((marker, index) => (
-              <Marker
-                key={index}
-                icon={customIcon}
-                position={[marker.geocode.latitude, marker.geocode.longitude]}
-              >
-                <Popup>{marker.popUp}</Popup>
-              </Marker>
-            ))}
+          {renderMarkers()}
         </MapContainer>
       ) : (
         <p>Cargando...</p>

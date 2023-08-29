@@ -5,8 +5,7 @@ const initialState = {
   iconUrl: "",
   type: "",
   comment: "",
-  startTime: "",
-  endTime: "",
+  timeStamp: "",
   latitude: "",
   longitude: "",
 };
