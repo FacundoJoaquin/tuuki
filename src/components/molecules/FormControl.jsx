@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateControl } from "../redux/features/createControl/createControSlice";
+import { handleMarkers, pinCreateControlSlice } from "../redux/features/pinCreateControl/pinCreateControlSlice";
 import ExitIcon from "../atoms/ExitIcon"
 import { toggleModal } from "../redux/features/showModal/modalSlice";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -65,6 +66,7 @@ const FormControl = () => {
 	
 
 	useEffect(() => {
+
 		const createdAt = serverTimestamp();
 
 		console.log(createdAt)
@@ -90,41 +92,6 @@ const FormControl = () => {
 		}
 	}, []);
 
-	//TIMESTAMP PARA EL POST
-/* 	const setTimeStamp = () => {
-		const newTime = new Date();
-
-		const currentHour = String(newTime.getHours()).padStart(2, "0");
-		const currentMinute = String(newTime.getMinutes()).padStart(2, "0");
-		const currentSecond = String(newTime.getSeconds()).padStart(2, "0");
-		console.log(newTime)
-	} */
-
-	////////////////////////////////
-
-/* 	function getTimestamp() {
-		const newTime = new Date();
-
-		const currentHour = String(newTime.getHours()).padStart(2, "0");
-		const currentMinute = String(newTime.getMinutes()).padStart(2, "0");
-		const currentSecond = String(newTime.getSeconds()).padStart(2, "0");
-		const timeStamp = `${currentHour}:${currentMinute}:${currentSecond}`;
-
-		newTime.setMinutes(newTime.getMinutes() + 30);
-
-		const endHour = String(newTime.getHours()).padStart(2, "0");
-		const endMinute = String(newTime.getMinutes()).padStart(2, "0");
-		const endSecond = String(newTime.getSeconds()).padStart(2, "0");
-
-		const endTime = `${endHour}:${endMinute}:${endSecond}`;
-
-		setCreateControl((prevCreateControl) => ({
-			...prevCreateControl,
-			timeStamp: timeStamp,
-			endTime: endTime,
-		}));
-	}
- */
 	const handleInputComment = (event) => {
 		const newComment = event.target.value;
 		setComment(newComment);
@@ -134,6 +101,7 @@ const FormControl = () => {
 		e.preventDefault();
 		dispatch(updateControl(createControl))
 		handlePostControl(createControl);
+		dispatch(handleMarkers())
 		dispatch(toggleModal())
 	};
 
