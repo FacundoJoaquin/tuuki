@@ -4,7 +4,6 @@ const Welcome = () => {
   return (
     <div className="flex justify-center items-center h-full flex-col">
       <h1 className="font-barriecito text-4xl">TUKI</h1>
-      <p>actualizado</p>
       <div>
         <p className="text-center font-roboto">Te damos la bienvenida a Tuki.</p>
         <p className="text-center py-2 font-roboto">
