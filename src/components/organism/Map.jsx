@@ -53,7 +53,7 @@ const Map = () => {
 
 
   return (
-    <div className="z-10 h-full">
+    <div className="z-10 h-full w-full">
       {location.latitude !== null && location.longitude !== null ? (
         <MapContainer
           center={[location.latitude, location.longitude]}

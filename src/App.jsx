@@ -26,7 +26,7 @@ function App() {
             </Route>
           </Routes>
         </div>
-        <div className="h-10 bg-yellow-400">
+        <div className="h-10 z-50 absolute bottom-0 w-full bg-yellow-400">
           <Navbar />
         </div>
       </BrowserRouter>

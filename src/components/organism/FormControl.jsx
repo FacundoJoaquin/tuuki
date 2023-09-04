@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateControl } from "../redux/features/createControl/createControSlice";
-import { handleMarkers, pinCreateControlSlice } from "../redux/features/pinCreateControl/pinCreateControlSlice";
+import { handleMarkers } from "../redux/features/pinCreateControl/pinCreateControlSlice";
 import ExitIcon from "../atoms/ExitIcon"
 import { toggleModal } from "../redux/features/showModal/modalSlice";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig.js"
 
-const FormControl = () => {
-	const dispatch = useDispatch()
-	const marker = {
-		iconUrl: "",
-		type: "",
-		comment: "",
-		timeStamp: "",
-		latitude: "",
-		longitude: "",
-	};
+const marker = {
+	iconUrl: "",
+	type: "",
+	comment: "",
+	timeStamp: "",
+	latitude: "",
+	longitude: "",
+};
 
-	const [createControl, setCreateControl] = useState(marker);
+
+const FormControl = () => {
 	const [comment, setComment] = useState("");
+	const [createControl, setCreateControl] = useState(marker);
+	const [selectedType, setSelectedType] = useState(true)
+	const dispatch = useDispatch()
 
 
 
@@ -28,6 +30,8 @@ const FormControl = () => {
 	};
 
 	const handleControlType = (controlType) => {
+		setSelectedType(controlType);
+
 		switch (controlType) {
 			case "controlCanino":
 				setCreateControl((prevCreateControl) => ({
@@ -63,7 +67,7 @@ const FormControl = () => {
 		}
 
 	};
-	
+
 
 	useEffect(() => {
 
@@ -76,7 +80,6 @@ const FormControl = () => {
 					const latitude = position.coords.latitude;
 					const longitude = position.coords.longitude;
 
-					// Agrega el marcador automáticamente cuando obtienes la ubicación
 					setCreateControl((prevCreateControl) => ({
 						...prevCreateControl,
 						latitude: latitude,
@@ -143,7 +146,7 @@ const FormControl = () => {
 				<div className="flex flex-col justify-center">
 					<h3 className="text-lg text-center font-bold">Tipo de control</h3>
 					<div className="flex justify-around">
-						<label>
+						<label className="relative">
 							<input
 								type="radio"
 								name="controles"
@@ -152,13 +155,15 @@ const FormControl = () => {
 								onChange={() => handleControlType("controlCanino")}
 								className="hidden"
 							/>
+							{selectedType === "controlCanino" &&
+								<div className="z-10 absolute bg-red-500 top-0 left-0 h-10 w-10 rounded-full " />}
 							<img
 								src={controles[0].controlCanino}
 								alt="controlCanino"
-								className="w-10"
+								className="w-10 z-30 relative"
 							/>
 						</label>
-						<label>
+						<label className="relative">
 							<input
 								type="radio"
 								name="controles"
@@ -167,13 +172,15 @@ const FormControl = () => {
 								onChange={() => handleControlType("controlPapeles")}
 								className="hidden"
 							/>
+							{selectedType === "controlPapeles" &&
+								<div className="z-10 absolute bg-red-500 top-0 left-0 h-10 w-10 rounded-full " />}
 							<img
 								src={controles[0].controlPapeles}
 								alt="controlPapeles"
-								className="w-10"
+								className="w-10 z-30 relative"
 							/>
 						</label>
-						<label>
+						<label className="relative">
 							<input
 								type="radio"
 								name="controles"
@@ -182,13 +189,15 @@ const FormControl = () => {
 								onChange={() => handleControlType("controlAlcohol")}
 								className="hidden"
 							/>
+							{selectedType === "controlAlcohol" &&
+								<div className="z-10 absolute bg-red-500 top-0 left-0 h-10 w-10 rounded-full " />}
 							<img
 								src={controles[0].controlAlcohol}
 								alt="controlAlcohol"
-								className="w-10"
+								className="w-10 z-30 relative"
 							/>
 						</label>
-						<label>
+						<label className="relative">
 							<input
 								type="radio"
 								name="controles"
@@ -197,10 +206,12 @@ const FormControl = () => {
 								onChange={() => handleControlType("controlGendarmeria")}
 								className="hidden"
 							/>
+							{selectedType === "controlGendarmeria" &&
+								<div className="z-10 absolute bg-red-500 top-0 left-0 h-10 w-10 rounded-full " />}
 							<img
 								src={controles[0].controlGendarmeria}
 								alt="controlGendarmeria"
-								className="w-10"
+								className="w-10 z-30 relative"
 							/>
 						</label>
 					</div>
