@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const Welcome = () => {
   return (
-    <div className="flex justify-center items-center h-full flex-col">
-      xDDD
+    <div className="flex justify-center items-center h-screen flex-col">
+      jajant
       <h1 className="font-barriecito text-4xl">TUKI</h1>
       <div>
         <p className="text-center font-roboto">Te damos la bienvenida a Tuki.</p>
