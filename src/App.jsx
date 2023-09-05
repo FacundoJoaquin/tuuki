@@ -8,16 +8,12 @@ import MapView from "./components/views/MapView";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
 import { useLocalStorage } from "react-use";
 import useBodyScroll from "./components/hooks/useBodyScroll";
-import { useEffect } from "react";
 
 function App() {
-  const [isLocked] = useBodyScroll();
   const user = useLocalStorage("user");
   const userIsAuthorized = Boolean(user);
 
-  useEffect(() => {
-    document.body.style.overflowY = !isLocked ? 'hidden' : 'auto';
-  }, [isLocked]);
+
 
 
   return (
