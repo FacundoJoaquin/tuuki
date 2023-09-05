@@ -7,25 +7,10 @@ import Welcome from "./components/views/Welcome";
 import MapView from "./components/views/MapView";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
 import { useLocalStorage } from "react-use";
-import { useEffect } from "react";
 
 function App() {
   const user = useLocalStorage("user");
   const userIsAuthorized = Boolean(user);
-
-  const adjustContentHeight = () => {
-    document.body.style.height = window.innerHeight + 'px';
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', adjustContentHeight);
-
-    return () => {
-      window.removeEventListener('resize', adjustContentHeight);
-    };
-  }, []);
-
-
 
 
   return (
