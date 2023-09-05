@@ -7,11 +7,26 @@ import Welcome from "./components/views/Welcome";
 import MapView from "./components/views/MapView";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
 import { useLocalStorage } from "react-use";
+import { useEffect } from "react";
 
 function App() {
-  // Obtén el valor de user del almacenamiento local y conviértelo en un booleano
   const user = useLocalStorage("user");
   const userIsAuthorized = Boolean(user);
+
+  const adjustContentHeight = () => {
+    document.body.style.height = window.innerHeight + 'px';
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', adjustContentHeight);
+
+    return () => {
+      window.removeEventListener('resize', adjustContentHeight);
+    };
+  }, []);
+
+
+
 
   return (
     <div className="flex flex-col">
@@ -21,7 +36,7 @@ function App() {
             <Route path="/" element={<Welcome />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/login" element={<LogIn />} />
-            <Route element={<ProtectedRoute authorized={userIsAuthorized} redirectPath="/login"/>}> {/* TAMBIEN PUEDO USAR redirectPath para llevar a otro lado */}
+            <Route element={<ProtectedRoute authorized={userIsAuthorized} redirectPath="/login" />}> {/* TAMBIEN PUEDO USAR redirectPath para llevar a otro lado */}
               <Route path="/map" element={<MapView />} />
             </Route>
           </Routes>
