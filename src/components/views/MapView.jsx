@@ -24,7 +24,7 @@ const MapView = () => {
     return (
         <div className='h-screen overflow-hidden'>
             <h1 className='p-1 ml-1 font-bold text-xl'>Mapa</h1>
-            <div className='h-full w-auto px-2 '>
+            <div className='h-screen w-auto px-2 '>
                 <Map />
                 {faqsVisible === true && (
                     <Faqs onToggleContent={handleFaqsToggle} />
