@@ -5,6 +5,7 @@
 }
 body {
   overflow-y: hidden;
+  max-height: 100vh; 
 }
 .glass-container {
     backdrop-filter: blur(2px) saturate(30%);
