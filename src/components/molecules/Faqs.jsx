@@ -6,6 +6,7 @@ import ControlType from '../atoms/ControlType'
 import Arrow from './Arrow'
 import HistorialContainer from './HistorialContainers'
 import { useState } from 'react'
+import ArrowSquare from '../atoms/ArrowSquare'
 
 const controls = [
   { name: 'Canino', url: controlCanino },
@@ -28,10 +29,10 @@ const Faqs = ({ onToggleContent }) => {
     <div className='w-full flex justify-center'>
       <div className='glass-container absolute bottom-10 w-5/6 z-50 h-4/6'>
         <div className='absolute w-full -top-10 flex justify-center'>
-          <Arrow onClick={handleShowContent} />
+            <Arrow onClick={handleShowContent} />
         </div>
         <h1 className='text-xl p-3 font-bold'>Tipo de controles</h1>
-          <ControlType data={controls} />
+        <ControlType data={controls} />
         <HistorialContainer />
       </div>
     </div>
