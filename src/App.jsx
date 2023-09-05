@@ -14,9 +14,9 @@ function App() {
   const userIsAuthorized = Boolean(user);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col">
       <BrowserRouter>
-        <div className="flex-grow bg-lw-50">
+        <div className="flex-grow h-screen bg-lw-50">
           <Routes>
             <Route path="/" element={<Welcome />} />
             <Route path="/signUp" element={<SignUp />} />
