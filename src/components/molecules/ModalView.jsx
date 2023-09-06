@@ -6,7 +6,6 @@ import ControlType from '../atoms/ControlType'
 import Arrow from './Arrow'
 import HistorialContainer from './HistorialContainers'
 import { useState } from 'react'
-import ArrowSquare from '../atoms/ArrowSquare'
 
 const controls = [
   { name: 'Canino', url: controlCanino },
@@ -15,7 +14,7 @@ const controls = [
   { name: 'Papeles', url: controlPapeles }
 ]
 
-const Faqs = ({ onToggleContent }) => {
+const ModalView = ({ onToggleContent }) => {
   const [showContent, setShowContent] = useState(false);
 
   const handleShowContent = () => {
@@ -28,8 +27,10 @@ const Faqs = ({ onToggleContent }) => {
   return (
     <div className='w-full flex justify-center'>
       <div className='glass-container absolute bottom-10 w-5/6 z-50 h-4/6'>
-        <div className='absolute w-full -top-10 flex justify-center'>
+        <div className='absolute w-full  -top-16 flex justify-center'>
+          <div className='h-12 w-12 glass-container border border-gray-200 shadow-md rounded-xl  flex justify-center items-center'>
             <Arrow onClick={handleShowContent} />
+          </div>
         </div>
         <h1 className='text-xl p-3 font-bold'>Tipo de controles</h1>
         <ControlType data={controls} />
@@ -39,4 +40,4 @@ const Faqs = ({ onToggleContent }) => {
   );
 };
 
-export default Faqs;
+export default ModalView;

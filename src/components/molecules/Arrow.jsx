@@ -5,8 +5,8 @@ const Arrow = ({ onClick }) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className='text-gray-400'
-      style={{ width: '2.5rem', height: '2.5rem', cursor: 'pointer' }}
+      className='text-gray-700'
+      style={{ width: '3rem', height: '3rem', cursor: 'pointer' }}
       onClick={onClick}
     >
       <path

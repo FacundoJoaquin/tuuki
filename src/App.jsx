@@ -7,33 +7,33 @@ import Welcome from "./components/views/Welcome";
 import MapView from "./components/views/MapView";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
 import { useLocalStorage } from "react-use";
-import useBodyScroll from "./components/hooks/useBodyScroll";
 
 function App() {
   const user = useLocalStorage("user");
   const userIsAuthorized = Boolean(user);
 
-
-
-
   return (
-    <div className="flex flex-col">
-      <BrowserRouter>
-        <div className="flex-grow h-screen bg-lw-50">
+    <BrowserRouter>
+      <div className="flex flex-col h-full absolute">
+        <div className="flex-grow flex w-screen">
           <Routes>
             <Route path="/" element={<Welcome />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/login" element={<LogIn />} />
-            <Route element={<ProtectedRoute authorized={userIsAuthorized} redirectPath="/login" />}> {/* TAMBIEN PUEDO USAR redirectPath para llevar a otro lado */}
+            <Route
+              element={
+                <ProtectedRoute authorized={userIsAuthorized} redirectPath="/login" />
+              }
+            >
               <Route path="/map" element={<MapView />} />
             </Route>
           </Routes>
         </div>
-        <div className="z-50 absolute bottom-0 w-full">
+        <div className="h-12  relative bottom-0">
           <Navbar />
         </div>
-      </BrowserRouter>
-    </div>
+      </div>
+    </BrowserRouter>
   );
 }
 

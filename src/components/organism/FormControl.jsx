@@ -62,7 +62,6 @@ const FormControl = () => {
 				}));
 				break;
 			default:
-				console.log("error: Unknown control type");
 				break;
 		}
 
@@ -70,10 +69,6 @@ const FormControl = () => {
 
 
 	useEffect(() => {
-
-		const createdAt = serverTimestamp();
-
-		console.log(createdAt)
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
@@ -128,7 +123,6 @@ const FormControl = () => {
 	const handlePostControl = async () => {
 		//PUSHEA EL CONTROL A FIRESTORE
 		const createdAt = serverTimestamp();
-		console.log(createdAt);
 		const docRef = await addDoc(collection(db, "controles"), {
 			createControl,
 			timeStamp: createdAt
@@ -142,9 +136,9 @@ const FormControl = () => {
 			<div className="relative bottom-3 right-2" onClick={handleModalClose}>
 				<ExitIcon />
 			</div>
-			<form className="w-full" onSubmit={(e) => handleSubmit(e)}>
+			<form className="w-full h-full flex flex-col" onSubmit={(e) => handleSubmit(e)}>
 				<div className="flex flex-col justify-center">
-					<h3 className="text-lg text-center font-bold">Tipo de control</h3>
+					<h3 className="text-lg text-center font-bold">CONFIRMAR CONTROL</h3>
 					<div className="flex justify-around">
 						<label className="relative">
 							<input
@@ -218,14 +212,13 @@ const FormControl = () => {
 				</div>
 				<div className="flex flex-col items-center mt-2">
 					<h3 className="text-lg text-center font-bold">Comentario</h3>
-					<input
-						type="text"
-						name=""
-						className="w-3/4 h-24 rounded-xl my-2 border border-gray-200 shadow-lg"
-						id=""
+					<textarea rows={3}
+						className="h-24 w-2/3 p-2 rounded-xl my-2 border border-gray-200 shadow-lg"
 						onChange={handleInputComment}
-					/>
-					<button type="submit">Enviar</button>
+					>
+
+					</textarea>
+					<button type="submit" className="w-2/3 bg-red-500 py-1 m-2 rounded border border-gray-300 text-white">Enviar</button>
 				</div>
 			</form>
 		</div>

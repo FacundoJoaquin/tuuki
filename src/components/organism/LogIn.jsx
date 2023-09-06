@@ -23,7 +23,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-full flex-col">
+    <div className="flex justify-center items-center w-screen h-full flex-col">
       <div className="h-1/3 w-2/3 rounded-2xl flex items-center justify-center border border-lw-200 shadow-xl">
         <form className="flex justify-center items-center flex-col gap-y-3" onSubmit={SingIn}>
           <h1 className="font-roboto text-xl">Log in</h1>
