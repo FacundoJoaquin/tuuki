@@ -4,14 +4,13 @@ import { updateControl } from "../redux/features/createControl/createControSlice
 import { handleMarkers } from "../redux/features/pinCreateControl/pinCreateControlSlice";
 import ExitIcon from "../atoms/ExitIcon"
 import { toggleModal } from "../redux/features/showModal/modalSlice";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig.js"
 
 const marker = {
 	iconUrl: "",
 	type: "",
 	comment: "",
-	timeStamp: "",
 	latitude: "",
 	longitude: "",
 };
@@ -21,9 +20,8 @@ const FormControl = () => {
 	const [comment, setComment] = useState("");
 	const [createControl, setCreateControl] = useState(marker);
 	const [selectedType, setSelectedType] = useState(true)
+	const [user, setUser] = useState({});
 	const dispatch = useDispatch()
-
-
 
 	const handleModalClose = () => {
 		dispatch(toggleModal());
@@ -68,6 +66,25 @@ const FormControl = () => {
 	};
 
 
+	const fetchUser = async () => {
+		const userStorage = sessionStorage.getItem('user');
+		const userObject = JSON.parse(userStorage);
+		const userEmail = userObject.email;
+		const q = query(collection(db, 'users'), where('email', '==', userEmail));
+
+		try {
+			const querySnapshot = await getDocs(q);
+			const array = [];
+			querySnapshot.forEach((doc) => {
+				const user = doc.data();
+				array.push(user);
+			});
+			setUser(array);
+		} catch (error) {
+			console.error('Error al obtener los documentos:', error);
+		}
+	};
+
 	useEffect(() => {
 		if ("geolocation" in navigator) {
 			navigator.geolocation.getCurrentPosition(
@@ -88,6 +105,7 @@ const FormControl = () => {
 		} else {
 			console.error("Geolocalización no disponible");
 		}
+		fetchUser()
 	}, []);
 
 	const handleInputComment = (event) => {
@@ -120,16 +138,28 @@ const FormControl = () => {
 		},
 	];
 
+useEffect(()=>{console.log(user)},[user])
+
 	const handlePostControl = async () => {
-		//PUSHEA EL CONTROL A FIRESTORE
+		// PUSHEA EL CONTROL A FIRESTORE
 		const createdAt = serverTimestamp();
 		const docRef = await addDoc(collection(db, "controles"), {
 			createControl,
-			timeStamp: createdAt
+			timeStamp: createdAt,
+			userId: user[0]?.id
 		});
-		console.log("Document written with ID: ", docRef.id);
 
-	}
+		if (createControl && createControl.comment && user[0]?.achievements.firstComment) {
+			const updatedUser = { ...user[0] };
+			updatedUser.achievements.firstComment.complete = true;
+
+			await updateDoc(doc(db, "users", user[0].id), {
+				achievements: updatedUser.achievements,
+			});
+		}
+
+		console.log("Document written with ID: ", docRef.id);
+	};
 
 	return (
 		<div className="z-50 flex flex-col items-end h-full py-5 w-full">
