@@ -1,6 +1,6 @@
 import { Icon } from 'leaflet';
 import { Marker, Popup } from 'react-leaflet';
-import tuki from "../../assets/tuki.png";
+import tuki from "../../assets/tuki1.png";
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -10,7 +10,7 @@ const RenderLocation = ({ location }) => {
     const [handleMarker, setHandleMarker] = useState(pinCreateControl)
     const tukiIcon = new Icon({
         iconUrl: tuki,
-        iconSize: [120, 150],
+        iconSize: [50, 70],
     });
     const tukiText = '¡Hola, soy Tuki!. Esta es tu ubicación actual';
 

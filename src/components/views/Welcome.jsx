@@ -17,7 +17,7 @@ const Welcome = () => {
       <div className="mt-4 flex">
         <Link to="/login"><p className="font-roboto text-red-500 font-semibold">LOGIN</p></Link>
         <p className="font-roboto font-bold text-gray-400 text-sm mx-6">|</p>
-        <p className="font-roboto text-red-500 font-semibold">SIGNUP</p>
+        <Link to="/signUp"><p className="font-roboto text-red-500 font-semibold">SIGNUP</p></Link>
       </div>
     </div>
   );

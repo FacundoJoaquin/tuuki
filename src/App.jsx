@@ -6,16 +6,17 @@ import SignUp from "./components/organism/SignUp";
 import Welcome from "./components/views/Welcome";
 import MapView from "./components/views/MapView";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
-import { useLocalStorage } from "react-use";
+import {  useSessionStorage } from "react-use";
+import UserProfile from "./components/views/UserProfile";
 
 function App() {
-  const user = useLocalStorage("user");
+  const user = useSessionStorage("user");
   const userIsAuthorized = Boolean(user);
 
   return (
     <BrowserRouter>
       <div className="flex flex-col h-full absolute">
-        <div className="flex-grow flex w-screen">
+        <div className="flex-grow flex justify-center w-screen">
           <Routes>
             <Route path="/" element={<Welcome />} />
             <Route path="/signUp" element={<SignUp />} />
@@ -26,6 +27,13 @@ function App() {
               }
             >
               <Route path="/map" element={<MapView />} />
+            </Route>
+            <Route
+              element={
+                <ProtectedRoute authorized={userIsAuthorized} redirectPath="/login" />
+              }
+            >
+              <Route path="/user" element={<UserProfile />} />
             </Route>
           </Routes>
         </div>

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toggleModal } from "../redux/features/showModal/modalSlice.js";
 
-const iconsLeft = [<Link to="/login"><UserLogo /></Link>, <Link to="/map"><MapIcon /></Link>];
+const iconsLeft = [<Link to="/user"><UserLogo /></Link>, <Link to="/map"><MapIcon /></Link>];
 const iconsRight = [<TrophyIcon />, <SettingsIcon />];
 
 const Navbar = () => {

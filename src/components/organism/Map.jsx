@@ -84,7 +84,7 @@ const Map = () => {
           className="z-10"
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          {shouldRenderLocation ? <RenderLocation location={location} /> : null}
+          {shouldRenderLocation ? <RenderLocation location={location} /> : <RenderLocation location={location} />}
           <RenderControls data={controlsFetched} />
         </MapContainer>
       ) : (
