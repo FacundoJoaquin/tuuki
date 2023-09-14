@@ -17,7 +17,6 @@ const Medallero = () => {
 
         try {
             const querySnapshot = await getDocs(q);
-            console.log(querySnapshot);
             const array = [];
             querySnapshot.forEach((doc) => {
                 const user = doc.data();
@@ -34,10 +33,11 @@ const Medallero = () => {
     useEffect(() => {
         fetchUser();
     }, []);
-
+    
     useEffect(() => {
-        console.log(user);
+        const userId = user[0]?.id
         setMedal(user[0]?.achievements)
+        sessionStorage.setItem('userId', userId)
     }, [user]);
 
 

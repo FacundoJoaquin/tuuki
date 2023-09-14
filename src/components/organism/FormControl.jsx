@@ -138,7 +138,6 @@ const FormControl = () => {
 		},
 	];
 
-useEffect(()=>{console.log(user)},[user])
 
 	const handlePostControl = async () => {
 		// PUSHEA EL CONTROL A FIRESTORE

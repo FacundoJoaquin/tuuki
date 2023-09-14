@@ -1,4 +1,3 @@
-import React from 'react'
 import tuki from "../../assets/tuki1.png"
 
 const ModalPresentation = () => {

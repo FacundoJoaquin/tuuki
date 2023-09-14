@@ -6,7 +6,6 @@ import FirstPin from "../../assets/FirstPin.png"
 const Medals = ({ achieved, achievementData }) => {
     const medalClass = achieved ? '' : 'grayscale';
 
-    console.log('achievementData:', JSON.stringify(achievementData, null, 2));
     //const imageSrc = achievementData.image;
     const { complete, key } = achievementData;
     let imageSrc
