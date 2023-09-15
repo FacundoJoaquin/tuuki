@@ -8,11 +8,12 @@ import Modal from '../molecules/Modal.jsx';
 import ModalView from '../molecules/ModalView.jsx';
 import { useState } from 'react';
 import Arrow from '../molecules/Arrow.jsx';
+import HelpIcon from '../atoms/HelpIcon.jsx';
 
 const MapView = () => {
     const showModal = useSelector((state) => state.modal.modalState);
     const [modalView, setModalView] = useState(false);
-
+    const [modalExplanation, setModalExplanation] = useState(false);
     const handleFaqsToggle = () => {
         setModalView(!modalView);
     };
@@ -21,11 +22,17 @@ const MapView = () => {
         setModalView(true);
     };
 
+    const handleModalExplanation = () => {
+        setModalExplanation(!modalExplanation);
+    }
+    const closeModalExplenation = () => {
+        setModalExplanation(false);
+    }
 
     return (
-        <div className='h-full overflow-hidden w-full'>
-            <h1 className='p-1 ml-1 font-bold text-xl'>Mapa</h1>
-            <div className='h-full w-full px-2 '>
+        <div className='h-full overflow-hidden w-full relative'>
+            <div className='absolute right-3 top-4 z-50 rounded-lg  glass-container' onClick={handleModalExplanation}><HelpIcon /></div>
+            <div className='h-full w-full px-2 pt-2'>
                 <Map />
                 {modalView === true && (
                     <ModalView onToggleContent={handleFaqsToggle} />
@@ -38,10 +45,11 @@ const MapView = () => {
                     </div>
                 </div>
             )}
-{/*             <Modal>
-                <ModalPresentation />
-
-            </Modal> */}
+            {modalExplanation && (
+                <Modal>
+                    <ModalPresentation closeModalExplenation={closeModalExplenation} />
+                </Modal>
+            )}
             {showModal && (
                 <Modal>
                     <FormControl />
