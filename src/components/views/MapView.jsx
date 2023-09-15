@@ -31,7 +31,7 @@ const MapView = () => {
 
     return (
         <div className='h-full overflow-hidden w-full relative'>
-            <div className='absolute right-3 top-4 z-50 rounded-lg  glass-container' onClick={handleModalExplanation}><HelpIcon /></div>
+            <div className='absolute right-3 top-4 z-50 rounded-lg glass-container' onClick={handleModalExplanation}><HelpIcon /></div>
             <div className='h-full w-full px-2 pt-2'>
                 <Map />
                 {modalView === true && (
@@ -39,7 +39,7 @@ const MapView = () => {
                 )}
             </div>
             {modalView === false && (
-                <div className='relative bottom-28 z-30 flex justify-center'>
+                <div className='relative bottom-20 z-30 flex justify-center'>
                     <div className='h-12 w-12 flex items-center glass-container rounded-xl shadow-xl justify-center'>
                         <Arrow onClick={handleArrowClick} />
                     </div>

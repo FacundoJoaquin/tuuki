@@ -26,7 +26,7 @@ const ModalView = ({ onToggleContent }) => {
 
   return (
     <div className='w-full flex justify-center'>
-      <div className='glass-container absolute bottom-10 w-5/6 z-50 h-4/6'>
+      <div className='glass-container absolute bottom-0 w-5/6 z-50 h-4/6'>
         <div className='absolute w-full  -top-16 flex justify-center'>
           <div className='h-12 w-12 glass-container border border-gray-200 shadow-md rounded-xl  flex justify-center items-center'>
             <Arrow onClick={handleShowContent} />

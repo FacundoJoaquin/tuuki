@@ -6,8 +6,9 @@ import SignUp from "./components/organism/SignUp";
 import Welcome from "./components/views/Welcome";
 import MapView from "./components/views/MapView";
 import ProtectedRoute from "./components/utils/ProtectedRoute";
-import {  useSessionStorage } from "react-use";
+import { useSessionStorage } from "react-use";
 import UserProfile from "./components/views/UserProfile";
+import Config from "./components/views/Config";
 
 function App() {
   const user = useSessionStorage("user");
@@ -23,14 +24,21 @@ function App() {
             <Route path="/login" element={<LogIn />} />
             <Route
               element={
-                <ProtectedRoute authorized={userIsAuthorized} redirectPath="/login" />
+                <ProtectedRoute
+                  authorized={userIsAuthorized}
+                  redirectPath="/login"
+                />
               }
             >
               <Route path="/map" element={<MapView />} />
+              <Route path="/config" element={<Config />} />
             </Route>
             <Route
               element={
-                <ProtectedRoute authorized={userIsAuthorized} redirectPath="/login" />
+                <ProtectedRoute
+                  authorized={userIsAuthorized}
+                  redirectPath="/login"
+                />
               }
             >
               <Route path="/user" element={<UserProfile />} />

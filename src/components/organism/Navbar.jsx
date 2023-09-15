@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { toggleModal } from "../redux/features/showModal/modalSlice.js";
 
 const iconsLeft = [<Link to="/user"><UserLogo /></Link>, <Link to="/map"><MapIcon /></Link>];
-const iconsRight = [<TrophyIcon />, <SettingsIcon />];
+const iconsRight = [<TrophyIcon />, <Link to="/config"><SettingsIcon /></Link>];
 
 const Navbar = () => {
     const dispatch = useDispatch();

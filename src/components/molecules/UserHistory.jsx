@@ -55,7 +55,7 @@ const UserHistory = () => {
 
     return (
         <div className="mt-20 flex justify-center">
-            <div className="h-full w-4/5 border border-gray-300 shadow-md rounded-t-2xl rounded-b-2xl">
+            <div className="h-full w-4/5 border border-gray-300 shadow-xl rounded-t-2xl rounded-b-2xl">
                 <div>
                     <h1 className="text-center text-2xl text-white rounded-t-2xl border-b-white bg-red-500">
                         Historial de controles
