@@ -31,7 +31,7 @@ const MapView = () => {
 
     return (
         <div className='h-full overflow-hidden w-full relative'>
-            <div className='absolute right-3 top-4 z-50 rounded-lg glass-container' onClick={handleModalExplanation}><HelpIcon /></div>
+            <div className='absolute right-3 top-4 z-50 rounded-lg glass-container cursor-pointer' onClick={handleModalExplanation}><HelpIcon /></div>
             <div className='h-full w-full px-2 pt-2'>
                 <Map />
                 {modalView === true && (

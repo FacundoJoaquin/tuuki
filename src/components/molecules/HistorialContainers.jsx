@@ -10,11 +10,11 @@ const HistorialContainer = () => {
 
   const fetchControls = async () => {
     const now = new Date();
-    const oneDay = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+    const threeHoursAgo = new Date(now.getTime() - 3 * 60 * 60 * 1000);
 
     const q = query(
       collection(db, 'controles'),
-      where('timeStamp', '>', oneDay)
+      where('timeStamp', '>', threeHoursAgo)
     );
     try {
       const querySnapshot = await getDocs(q);

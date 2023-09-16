@@ -34,8 +34,13 @@ const UserHistory = () => {
         }
     };
 
+useEffect(() => {
+    fetchControls();
+    console.log('se fetchea');
+}, [])
+
     useEffect(() => {
-        fetchControls();
+        console.log(controls);
         const newControlCounts = {
             controlCanino: 0,
             controlPapeles: 0,

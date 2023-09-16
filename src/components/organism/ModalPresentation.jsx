@@ -9,7 +9,7 @@ import ExitIcon from "../atoms/ExitIcon";
 const ModalPresentation = ({closeModalExplenation}) => {
     return (
         <div className="relative">
-            <div className="absolute top-2 right-2" onClick={closeModalExplenation}>
+            <div className="absolute top-2 right-2 cursor-pointer" onClick={closeModalExplenation}>
                 <ExitIcon />
             </div>
             <div className="flex flex-col items-center p-2">
