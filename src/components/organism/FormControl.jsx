@@ -6,6 +6,7 @@ import ExitIcon from "../atoms/ExitIcon"
 import { toggleModal } from "../redux/features/showModal/modalSlice";
 import { collection, addDoc, serverTimestamp, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig.js"
+import { updateAchievements } from "../redux/features/achievements/achievementSlice";
 
 const marker = {
 	iconUrl: "",
@@ -29,7 +30,6 @@ const FormControl = () => {
 
 	const handleControlType = (controlType) => {
 		setSelectedType(controlType);
-
 		switch (controlType) {
 			case "controlCanino":
 				setCreateControl((prevCreateControl) => ({
@@ -62,7 +62,6 @@ const FormControl = () => {
 			default:
 				break;
 		}
-
 	};
 
 
@@ -149,12 +148,25 @@ const FormControl = () => {
 			if (!user[0]?.achievements.firstControl.complete) {
 				achievementsToUpdate['achievements.firstControl.complete'] = true;
 				updateNeeded = true;
+				dispatch(updateAchievements({
+					firstControl: {
+						complete: true,
+						key: "firstControl",
+					}
+				}));
+
 			}
 
 			// Actualiza firstComment si existe un comentario y no estaba completo
 			if (createControl.comment && !user[0]?.achievements.firstComment.complete) {
 				achievementsToUpdate['achievements.firstComment.complete'] = true;
 				updateNeeded = true;
+				dispatch(updateAchievements({
+					firstComment: {
+						complete: true,
+						key: "firstComment",
+					}
+				}));
 			}
 
 			// Si se necesita una actualización, actualiza el usuario en Firestore

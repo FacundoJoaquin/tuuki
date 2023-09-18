@@ -36,7 +36,6 @@ const UserHistory = () => {
 
 useEffect(() => {
     fetchControls();
-    console.log('se fetchea');
 }, [])
 
     useEffect(() => {

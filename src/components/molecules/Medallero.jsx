@@ -2,11 +2,16 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import Medals from '../atoms/Medals';
 import { db } from '../../firebase/firebaseConfig';
+import { useDispatch, useSelector } from 'react-redux';
+import { setfirstReadAchievements, updateAchievements } from '../redux/features/achievements/achievementSlice';
 
 const Medallero = () => {
     const [user, setUser] = useState({});
     const [medal, setMedal] = useState({});
     const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch()
+    const initialAchievementState = useSelector(state => state.achievement);
+
 
 
     const fetchUser = async () => {
@@ -14,7 +19,6 @@ const Medallero = () => {
         const userObject = JSON.parse(userStorage);
         const userEmail = userObject.email;
         const q = query(collection(db, 'users'), where('email', '==', userEmail));
-
         try {
             const querySnapshot = await getDocs(q);
             const array = [];
@@ -24,21 +28,44 @@ const Medallero = () => {
             });
             setUser(array);
             setLoading(false);
+
+            const userAchievements = array[0]?.achievements;
+            if (userAchievements) {
+                const updatedAchievements = {
+                    ...userAchievements,
+                };
+                dispatch(updateAchievements(updatedAchievements));
+            }
+
         } catch (error) {
             console.error('Error al obtener los documentos:', error);
         }
+        finally {
+            console.log('finally pasamos el first read')
+            dispatch(setfirstReadAchievements(true))
+
+        }
     };
 
+    useEffect(() => {
+        if (user[0]) {
+            const userId = user[0]?.id
+            sessionStorage.setItem('userId', userId)
+        }
+    }, [user])
+
 
     useEffect(() => {
-        fetchUser();
-    }, []);
-    
-    useEffect(() => {
-        const userId = user[0]?.id
-        setMedal(user[0]?.achievements)
-        sessionStorage.setItem('userId', userId)
-    }, [user]);
+        if (initialAchievementState && initialAchievementState.firstReadAchievements == false) {
+            fetchUser();
+            console.log('if user ')
+            setMedal(user[0]?.achievements);
+        } else {
+            console.log('else')
+            setLoading(false)
+            setMedal(initialAchievementState?.achievements);
+        }
+    }, [initialAchievementState]);
 
 
     return (
