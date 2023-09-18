@@ -49,12 +49,7 @@ const HistorialContainer = () => {
   });
 
 
-  useEffect(() => {
-    if (fetch.length > 0) {
-      parseHours(fetch[1]?.timeStamp.seconds);
-    }
 
-  }, [fetch])
 
   useEffect(() => {
     fetchControls()

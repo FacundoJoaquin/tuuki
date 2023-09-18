@@ -5,6 +5,8 @@ import controlAlcohol from "../../assets/controlAlcohol.png";
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
+import { useDispatch, useSelector } from "react-redux";
+import { setCounters } from "../redux/features/controlHistory/controlHistorialSlice";
 
 const controlsCounter = {
     controlCanino: 0,
@@ -14,13 +16,17 @@ const controlsCounter = {
 };
 
 const UserHistory = () => {
+    const dispatch = useDispatch()
+    const globalControlCounts = useSelector((state) => state.controlHistorial);
+
     const [controls, setControls] = useState([]);
     const [controlCounts, setControlCounts] = useState(controlsCounter);
+
 
     const fetchControls = async () => {
         let userId = sessionStorage.getItem("userId");
         const q = query(collection(db, "controles"), where("userId", "==", userId));
-
+        console.log('se fetchean los controles');
         try {
             const querySnapshot = await getDocs(q);
             const array = [];
@@ -35,11 +41,17 @@ const UserHistory = () => {
     };
 
 useEffect(() => {
-    fetchControls();
-}, [])
+    // Verifica si ya tienes valores asignados en el estado de Redux
+    const hasReduxValues = Object.values(globalControlCounts).some((count) => count > 0);
+    console.log(hasReduxValues);
+    if (hasReduxValues == false) {
+      // Si no tienes valores en Redux, entonces fetchea los datos
+      fetchControls();
+    }
+  }, [globalControlCounts]);
+
 
     useEffect(() => {
-        console.log(controls);
         const newControlCounts = {
             controlCanino: 0,
             controlPapeles: 0,
@@ -55,7 +67,13 @@ useEffect(() => {
             ...prevControlCounts,
             ...newControlCounts,
         }));
-    }, [controls]);
+
+        const hasValues = Object.values(newControlCounts).some((count) => count > 0);
+
+        if (hasValues) {
+          dispatch(setCounters(newControlCounts));
+        }
+    }, [controls, dispatch]);
 
     return (
         <div className="mt-20 flex justify-center">
@@ -69,25 +87,25 @@ useEffect(() => {
                 <div className="flex justify-between px-12 mt-2 items-center">
                     <img src={controlPapeles} alt="" className="h-10" />
                     <p className="text-xl">Papeles</p>
-                    <p className="text-xl">{controlCounts.controlPapeles}</p>
+                    <p className="text-xl">{controlCounts.controlPapeles || globalControlCounts.controlPapeles}</p>
                 </div>
 
                 <div className="flex justify-between px-12 mt-2 items-center">
                     <img src={controlAlcohol} alt="" className="h-10" />
                     <p className="text-xl">Alcoholemia</p>
-                    <p className="text-xl">{controlCounts.controlAlcohol}</p>
+                    <p className="text-xl">{controlCounts.controlAlcohol || globalControlCounts.controlAlcohol}</p>
                 </div>
 
                 <div className="flex justify-between px-12 mt-2 items-center">
                     <img src={controlCanino} alt="" className="h-10" />
                     <p className="text-xl">Caninos</p>
-                    <p className="text-xl">{controlCounts.controlCanino}</p>
+                    <p className="text-xl">{controlCounts.controlCanino || globalControlCounts.controlCanino}</p>
                 </div>
 
                 <div className="flex justify-between px-12 mt-2 items-center">
                     <img src={controlGendarmeria} alt="" className="h-10" />
                     <p className="text-xl">Gendarmeria</p>
-                    <p className="text-xl">{controlCounts.controlGendarmeria}</p>
+                    <p className="text-xl">{controlCounts.controlGendarmeria || globalControlCounts.controlGendarmeria}</p>
                 </div>
 
             </div>

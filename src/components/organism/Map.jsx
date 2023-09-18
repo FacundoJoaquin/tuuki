@@ -53,9 +53,7 @@ const Map = () => {
       array.push(fetchCordenates)
     });
     setCoordinates(array)
-
-  }
-    , [controlsFetched]);
+  }, [controlsFetched]);
 
   useEffect(() => {
 

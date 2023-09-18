@@ -41,9 +41,7 @@ const Medallero = () => {
             console.error('Error al obtener los documentos:', error);
         }
         finally {
-            console.log('finally pasamos el first read')
             dispatch(setfirstReadAchievements(true))
-
         }
     };
 
@@ -58,10 +56,8 @@ const Medallero = () => {
     useEffect(() => {
         if (initialAchievementState && initialAchievementState.firstReadAchievements == false) {
             fetchUser();
-            console.log('if user ')
             setMedal(user[0]?.achievements);
         } else {
-            console.log('else')
             setLoading(false)
             setMedal(initialAchievementState?.achievements);
         }

@@ -7,6 +7,7 @@ import { toggleModal } from "../redux/features/showModal/modalSlice";
 import { collection, addDoc, serverTimestamp, getDocs, query, where, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig.js"
 import { updateAchievements } from "../redux/features/achievements/achievementSlice";
+import { incrementCounter } from "../redux/features/controlHistory/controlHistorialSlice";
 
 const marker = {
 	iconUrl: "",
@@ -37,6 +38,7 @@ const FormControl = () => {
 					type: controlType,
 					iconUrl: controles[0].controlCanino,
 				}));
+
 				break;
 			case "controlPapeles":
 				setCreateControl((prevCreateControl) => ({
@@ -118,6 +120,8 @@ const FormControl = () => {
 		handlePostControl(createControl);
 		dispatch(handleMarkers())
 		dispatch(toggleModal())
+		dispatch(incrementCounter({ field: createControl.type }));
+
 	};
 
 	useEffect(() => {
@@ -154,7 +158,6 @@ const FormControl = () => {
 						key: "firstControl",
 					}
 				}));
-
 			}
 
 			// Actualiza firstComment si existe un comentario y no estaba completo
