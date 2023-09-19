@@ -9,11 +9,9 @@ import ProtectedRoute from "./components/utils/ProtectedRoute";
 import { useSessionStorage } from "react-use";
 import UserProfile from "./components/views/UserProfile";
 import Config from "./components/views/Config";
+import { useEffect } from "react";
 
 function App() {
-  const [user, setUser] = useSessionStorage('user');
-
-
   return (
     <BrowserRouter>
       <div className="flex flex-col h-full absolute">
