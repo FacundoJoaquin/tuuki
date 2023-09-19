@@ -34,7 +34,7 @@ const ChangePassword = () => {
   return (
     <div className="border shadow-xl">
       <div
-        className="text-xl flex items-center justify-center cursor-pointer"
+        className="text-xl flex items-center justify-center cursor-pointer dark:bg-yellow-500"
         onClick={handleShowForm}
       >
         ¿Desea modificar su contraseña? <Arrow />

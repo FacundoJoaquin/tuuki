@@ -79,33 +79,33 @@ useEffect(() => {
         <div className="mt-20 flex justify-center xs:h-1/3">
             <div className="h-full w-4/5 border border-gray-300 shadow-xl p rounded-t-2xl rounded-b-2xl xxs:h-full xs:overflow-y-auto xs:mt-8 xxs:mt-0">
                 <div>
-                    <h1 className="text-center text-2xl text-white rounded-t-2xl border-b-white bg-red-500 xs:text-xl">
+                    <h1 className="text-center text-2xl text-white rounded-t-2xl border-b-white bg-red-500 xs:text-xl dark:bg-slate-800 dark:border dark:py-1">
                         Historial de controles
                     </h1>
                 </div>
                 
                 <div className="flex justify-between px-12 mt-2 items-center xs:mt-1 ">
                     <img src={controlPapeles} alt="" className="h-10 xs:h-8" />
-                    <p className="text-xl xs:text-md xxs:text-sm">Papeles</p>
-                    <p className="text-xl xs:text-md xxs:text-sm">{controlCounts.controlPapeles || globalControlCounts.controlPapeles}</p>
+                    <p className="text-xl xs:text-md xxs:text-sm dark:text-white">Papeles</p>
+                    <p className="text-xl xs:text-md xxs:text-sm dark:text-white">{controlCounts.controlPapeles || globalControlCounts.controlPapeles}</p>
                 </div>
 
                 <div className="flex justify-between px-12 mt-2 items-center xs:mt-1">
                     <img src={controlAlcohol} alt="" className="h-10 xs:h-8" />
-                    <p className="text-xl xs:text-md xxs:text-sm">Alcoholemia</p>
-                    <p className="text-xl xs:text-md xxs:text-sm">{controlCounts.controlAlcohol || globalControlCounts.controlAlcohol}</p>
+                    <p className="text-xl xs:text-md xxs:text-sm dark:text-white">Alcoholemia</p>
+                    <p className="text-xl xs:text-md xxs:text-sm dark:text-white">{controlCounts.controlAlcohol || globalControlCounts.controlAlcohol}</p>
                 </div>
 
                 <div className="flex justify-between px-12 mt-2 items-center xs:mt-1">
                     <img src={controlCanino} alt="" className="h-10 xs:h-8" />
-                    <p className="text-xl xs:text-md xxs:text-sm">Caninos</p>
-                    <p className="text-xl xs:text-md xxs:text-sm">{controlCounts.controlCanino || globalControlCounts.controlCanino}</p>
+                    <p className="text-xl xs:text-md xxs:text-sm dark:text-white">Caninos</p>
+                    <p className="text-xl xs:text-md xxs:text-sm dark:text-white">{controlCounts.controlCanino || globalControlCounts.controlCanino}</p>
                 </div>
 
                 <div className="flex justify-between px-12 mt-2 items-center xs:mt-1">
                     <img src={controlGendarmeria} alt="" className="h-10 xs:h-8" />
-                    <p className="text-xl xs:text-md xxs:text-sm">Gendarmeria</p>
-                    <p className="text-xl xs:text-md xxs:text-sm">{controlCounts.controlGendarmeria || globalControlCounts.controlGendarmeria}</p>
+                    <p className="text-xl xs:text-md xxs:text-sm dark:text-white">Gendarmeria</p>
+                    <p className="text-xl xs:text-md xxs:text-sm dark:text-white">{controlCounts.controlGendarmeria || globalControlCounts.controlGendarmeria}</p>
                 </div>
 
             </div>

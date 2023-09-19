@@ -1,27 +1,40 @@
 import ChangePassword from "../molecules/ChangePassword";
-import ImageIcon from "../atoms/ImageIcon";
-import ny from "../../assets/ny.jpg";
-import tuki from "../../assets/tuki1.png";
 import { useState } from "react"; // Importa useState
-
+import ThemeSwitcher from "../atoms/ThemeSwitcher";
+import BannerSettings from "../atoms/BannerSettings";
+import Arrow from "../molecules/Arrow";
 
 const Config = () => {
-  const [isHovered, setIsHovered] = useState(false); 
+  const [showContent, setShowContent] = useState(false);
 
+  const handleShowContent = () => {
+    setShowContent(!showContent);
+  };
   return (
     <div className="h-screen w-screen">
-      <div className="h-1/3 relative w-screen flex justify-center">
-        <img src={ny} alt="" className="blur-sm grayscale" />
+      <ThemeSwitcher />
+      <BannerSettings />
+      <div className="mt-16">
+        <ChangePassword />
+      </div>
+      <div className="border shadow-xl">
         <div
-          className={`h-40 w-40 absolute -bottom-12 rounded-full flex items-center justify-center border border-stone-100 shadow-xl hover:bg-gray-300 hover:bg-opacity-80 ${isHovered ? 'hovered' : ''}`}
-          onMouseEnter={() => setIsHovered(true)} // Manejar hover
-          onMouseLeave={() => setIsHovered(false)} // Manejar hover
+          className="text-xl mt-6 flex items-center justify-center cursor-pointer dark:bg-yellow-500"
+          onClick={handleShowContent}
         >
-          <img src={tuki} alt="" className={`h-36 w-30 ${isHovered ? 'blur' : ''}`} />
-          {isHovered && <div className="absolute"><ImageIcon /></div>}
+          ¿Cómo funciona la aplicación? <Arrow />
+        </div>
+        <div
+          className={`transition-all ease-in-out duration-300 ${
+            showContent ? "h-auto opacity-100 py-2" : "h-0 opacity-0 py-0"
+          } overflow-hidden`}
+        >
+          Tuki toma tu ubicación en tiempo real, el te marcará donde está, si no
+          la tienes habilitada, no podrás utilizar la aplicación, por favor no
+          te olvides de aceptar los permisos. Una vez que tenga tu ubicación,
+          podrás marcar un control de transito en tu ubicación.
         </div>
       </div>
-      <div className="mt-16"><ChangePassword /></div>
     </div>
   );
 };
