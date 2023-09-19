@@ -12,7 +12,7 @@ const handleShowModal = () => {
 }
 
   return (
-    <div className="w-screen h-32 flex items-center relative overflow-x-hidden"> 
+    <div className="w-screen h-32 flex items-center relative overflow-x-hidden xs:h-28"> 
         <div className="h-20 w-20 rounded-full bg-white ml-8 overflow-hidden flex items-center border border-opacity-90 border-gray-200 shadow-xl">
           <img src={tuki} alt=""  className='p-4'/>
         </div>

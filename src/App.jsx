@@ -22,11 +22,9 @@ function App() {
             <Route path="/" element={<Welcome />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/login" element={<LogIn />} />
-            <Route element={<ProtectedRoute canActivate={user} redirectPath='/map' />}>
-              <Route path="/map" element={<MapView />} />
-              <Route path="/config" element={<Config />} />
-              <Route path="/user" element={<UserProfile />} />
-            </Route>
+            <Route path="/map" element={<MapView />} />
+            <Route path="/config" element={<Config />} />
+            <Route path="/user" element={<UserProfile />} />
           </Routes>
         </div>
         <div className="h-12  relative bottom-0">

@@ -86,7 +86,12 @@ const Map = () => {
           <RenderControls data={controlsFetched} />
         </MapContainer>
       ) : (
-        <p>Cargando...</p>
+        <div className="flex h-screen items-center justify-center">
+          <div className="">
+            <p className="font-barriecito text-7xl font-semibold text-center">UPS!</p>
+            <p>Algo salió mal y no pudimos acceder a tu ubicación</p>
+          </div>
+        </div>
       )}
     </div>
   );

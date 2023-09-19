@@ -8,6 +8,8 @@ export default {
         roboto: ["Roboto", "sans-serif"],
       },
       screens: {
+        xxs: "260px",
+      
         xs: "320px",
       },
       colors: {
