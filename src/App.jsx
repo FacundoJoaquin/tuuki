@@ -11,8 +11,8 @@ import UserProfile from "./components/views/UserProfile";
 import Config from "./components/views/Config";
 
 function App() {
-  const user = useSessionStorage("user");
-  const userIsAuthorized = Boolean(user);
+  const [user, setUser] = useSessionStorage('user');
+
 
   return (
     <BrowserRouter>
@@ -22,25 +22,9 @@ function App() {
             <Route path="/" element={<Welcome />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/login" element={<LogIn />} />
-            <Route
-              element={
-                <ProtectedRoute
-                  authorized={userIsAuthorized}
-                  redirectPath="/login"
-                />
-              }
-            >
+            <Route element={<ProtectedRoute canActivate={user} redirectPath='/map' />}>
               <Route path="/map" element={<MapView />} />
               <Route path="/config" element={<Config />} />
-            </Route>
-            <Route
-              element={
-                <ProtectedRoute
-                  authorized={userIsAuthorized}
-                  redirectPath="/login"
-                />
-              }
-            >
               <Route path="/user" element={<UserProfile />} />
             </Route>
           </Routes>

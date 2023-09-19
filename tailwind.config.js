@@ -1,31 +1,31 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
         barriecito: ["Barriecito", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
       },
-      colors: {
-        'mainred': {
-          '50': '#fcf5f4',
-          '100': '#fae9ea',
-          '200': '#f4d7d8',
-          '300': '#ebb6b8',
-          '400': '#e08c91',
-          '500': '#cb515c',
-          '600': '#ba4454',
-          '700': '#9c3445',
-          '800': '#832e3e',
-          '900': '#712a3a',
-          '950': '#3e131c',
+      screens: {
+        xs: "320px",
       },
-      
-        "lw": {
+      colors: {
+        mainred: {
+          50: "#fcf5f4",
+          100: "#fae9ea",
+          200: "#f4d7d8",
+          300: "#ebb6b8",
+          400: "#e08c91",
+          500: "#cb515c",
+          600: "#ba4454",
+          700: "#9c3445",
+          800: "#832e3e",
+          900: "#712a3a",
+          950: "#3e131c",
+        },
+
+        lw: {
           50: "#f5f5f5",
           100: "#efefef",
           200: "#dcdcdc",
@@ -67,7 +67,7 @@ export default {
           900: "#212728",
         },
       },
-  },
+    },
   },
   plugins: [],
-}
+};
