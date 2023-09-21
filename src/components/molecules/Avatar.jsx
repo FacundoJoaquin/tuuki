@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import tuki from '../../assets/tuki1.png'
 import HelpIcon from '../atoms/HelpIcon'
-import Modal from './Modal'
 import ModalUser from './ModalUser'
+import Modal from '../organism/Modal'
 
 const Avatar = () => {
 const [showModal, setShowModal] = useState(false)

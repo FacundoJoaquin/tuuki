@@ -4,7 +4,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth/cordova";
 import { Link } from "react-router-dom"; // Import useHistory
 import { db } from "../../firebase/firebaseConfig.js";
 import { collection, doc, setDoc } from "firebase/firestore";
-
+import Modal from "./Modal";
+import ModalNewUser from "../molecules/ModalNewUser";
 const achievements = {
 	firstLogin: {
 		complete: true,
@@ -23,7 +24,7 @@ const achievements = {
 const SignUp = () => {
 	const [user, setUser] = useState("");
 	const [password, setPassword] = useState("");
-
+	const [modal, setModal] = useState(true);
 	const setUserDoc = async (email) => {
 		try {
 			// Crea un nuevo documento con un ID generado automáticamente
@@ -52,10 +53,15 @@ const SignUp = () => {
 				const userEmail = userCredential.user.email;
 				setUserDoc(userEmail);
 			})
+			.finally(setModal(true))
 			.catch((error) => {
 				console.log(error);
 			});
 	};
+
+	const handleModal = () => {
+		setModal(!modal);
+	}
 
 	return (
 		<div className="flex justify-center items-center w-screen h-full flex-col">
@@ -93,6 +99,11 @@ const SignUp = () => {
 			>
 				¡Ya tengo una cuenta!
 			</Link>
+			{modal && (
+				<Modal>
+					<ModalNewUser props={handleModal}/>
+				</Modal>
+			)}
 		</div>
 	);
 };

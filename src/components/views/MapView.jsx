@@ -4,11 +4,11 @@ import "leaflet/dist/leaflet.css";
 import "../organism/map.css";
 import FormControl from '../organism/FormControl.jsx';
 import ModalPresentation from '../organism/ModalPresentation.jsx';
-import Modal from '../molecules/Modal.jsx';
 import ModalView from '../molecules/ModalView.jsx';
 import { useState } from 'react';
 import Arrow from '../molecules/Arrow.jsx';
 import HelpIcon from '../atoms/HelpIcon.jsx';
+import Modal from '../organism/Modal.jsx';
 
 const MapView = () => {
     const showModal = useSelector((state) => state.modal.modalState);
