@@ -8,7 +8,9 @@ import controlPapeles from '../../assets/controlPapeles.png';
 
 const RenderControls = ({ data }) => {
   const [controls, setControls] = useState([]);
-
+  useEffect(() => {
+    console.log(data);
+  },[data])
   const handleCreatePins = (controlsData) => {
     const mapPins = controlsData.map((control, index) => {
       const {
@@ -35,9 +37,16 @@ const RenderControls = ({ data }) => {
   };
 
   useEffect(() => {
-    handleCreatePins(data);
+    // Verificar si data es un array
+    if (!Array.isArray(data)) {
+      // Si no es un array, crear un nuevo array con data como único elemento
+      handleCreatePins([data]);
+    } else {
+      // Si es un array, llamar a handleCreatePins con data directamente
+      handleCreatePins(data);
+    }
   }, [data]);
-
+  
   const getIconUrl = (type) => {
     switch (type) {
       case 'controlCanino':

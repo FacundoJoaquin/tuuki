@@ -11,9 +11,12 @@ export const pinCreateControlSlice = createSlice({
     handleMarkers: (state) => {
       state.pinCreateControl = true;
     },
+    pinCreateControlFalse: (state) => {
+      state.pinCreateControl = false;
+    },
   },
 });
 
-export const { handleMarkers } = pinCreateControlSlice.actions;
+export const { handleMarkers, pinCreateControlFalse } = pinCreateControlSlice.actions;
 
 export default pinCreateControlSlice.reducer;
