@@ -22,7 +22,7 @@ const ThemeSwitcher = () => {
             onClick={toggleDarkMode}
             className="px-4 py-2 rounded-md bg-gray-800 text-white"
         >
-            {darkMode ? "Light Mode" : "Dark Mode"}
+            {darkMode ? "Modo claro" : "Modo oscuro"}
         </button>
     );
 };

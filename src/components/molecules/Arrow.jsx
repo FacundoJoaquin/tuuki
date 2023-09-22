@@ -1,11 +1,11 @@
 
-const Arrow = ({ onClick }) => {
+const Arrow = ({ onClick, rotate }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className='text-gray-700'
+      className={`text-gray-700 transform ${rotate}`}
       style={{ width: '3rem', height: '3rem', cursor: 'pointer' }}
       onClick={onClick}
     >
