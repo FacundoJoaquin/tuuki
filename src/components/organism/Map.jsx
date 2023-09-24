@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { pinCreateControlFalse } from "../redux/features/pinCreateControl/pinCreateControlSlice";
 import check from "../../assets/check.png";
+import MapClickHandler from "../molecules/MapClickHandler";
+import { userLocation } from "../redux/features/userLocation/userLocationSlice";
 
 const Map = () => {
   const [location, setLocation] = useState({ latitude: null, longitude: null });
@@ -23,12 +25,11 @@ const Map = () => {
   const pinCreateControl = useSelector((state) => state.pinCreateControl);
   const createControl = useSelector((state) => state.createControl);
   const dispatch = useDispatch();
+
   useEffect(() => {
     console.log("pinCreateControl", pinCreateControl);
-
     // Obtén un array de los valores contenidos en el objeto
     const values = Object.values(pinCreateControl);
-
     // Verifica si algún valor en el array es igual a true
     const isPinCreateControlTrue = values.includes(true);
 
@@ -42,6 +43,7 @@ const Map = () => {
     try {
       const location = await GetLocation();
       setLocation(location);
+      dispatch(userLocation(location))
     } catch (error) {
       console.error("Error al obtener la ubicación:", error);
     }
@@ -67,6 +69,8 @@ const Map = () => {
       console.error("Error al obtener los documentos:", error);
     }
   };
+
+  
 
   useEffect(() => {
     const fetchCordenates = { latitude: 0, longitude: 0 };
@@ -109,17 +113,19 @@ const Map = () => {
           zoom={16}
           className="z-10"
         >
+                      <MapClickHandler />
+
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           {shouldRenderLocation ? <RenderLocation location={location} /> : null}
           <RenderControls data={controlsFetched} />
         </MapContainer>
       ) : (
-        <div className="flex h-screen items-center justify-center">
+        <div className="flex h-full items-center justify-center">
           <div className="">
-            <p className="font-barriecito text-7xl font-semibold text-center">
+            <p className="font-barriecito text-7xl font-semibold text-center dark:text-white">
               UPS!
             </p>
-            <p>Algo salió mal y no pudimos acceder a tu ubicación</p>
+            <p className=" dark:text-white">Algo salió mal y no pudimos acceder a tu ubicación</p>
           </div>
         </div>
       )}
@@ -127,7 +133,7 @@ const Map = () => {
         <Modal>
           <div className="h-48 text-center flex flex-col items-center justify-evenly">
             <img src={check} alt="" />
-            <p className="text-2xl font-bold">¡Control añadido con éxito!</p>
+            <p className="text-2xl font-bold dark:text-nmate-200">¡Control añadido con éxito!</p>
             <button
               onClick={handleCloseModal}
               className="h-8 w-16 bg-gradient-to-t from-red-500 to-orange-400 text-white rounded-xl"

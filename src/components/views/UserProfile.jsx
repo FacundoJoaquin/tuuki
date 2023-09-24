@@ -6,7 +6,7 @@ import UserHistory from '../molecules/UserHistory.jsx'
 
 const UserProfile = () => {
   return (
-    <div className='flex flex-col dark:bg-slate-800'>
+    <div className='flex flex-col dark:bg-nmate-950'>
       <Avatar />
       <Medals />
       <UserHistory />

@@ -15,28 +15,25 @@ const Config = () => {
   };
 
   return (
-    <div className="h-screen w-screen dark:bg-slate-800 overflow-y-hidden">
+    <div className="h-full w-screen dark:bg-nmate-950	overflow-y-hidden ">
       <BannerSettings />
       <div className="flex flex-col gap-y-8 mt-6">
         <div onClick={handleContainerClick} >
           <SettingsContainer
             title="¿Cómo funciona la aplicación?"
             answer={<Faqs />}
-            arrow={<Arrow rotate={isArrowRotated ? "" : "rotate-180"} />}
           />
         </div>
         <div onClick={handleContainerClick}>
           <SettingsContainer
             title="Desea cambiar la contraseña"
             answer={<ChangePassword />}
-            arrow={<Arrow rotate={isArrowRotated ? "" : "rotate-180"} />}
           />
         </div>
         <div onClick={handleContainerClick}>
           <SettingsContainer
             title="Feedback"
             answer={<Feedback />}
-            arrow={<Arrow rotate={isArrowRotated ? "" : "rotate-180"} />}
           />{" "}
         </div>
 
@@ -44,7 +41,6 @@ const Config = () => {
           <SettingsContainer
             title="Cambiar tema"
             answer={<ThemeSwitcher />}
-            arrow={<Arrow rotate={isArrowRotated ? "" : "rotate-180"} />}
           />{" "}
         </div>
       </div>

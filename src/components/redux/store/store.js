@@ -6,6 +6,7 @@ import gotoLocationSlice from '../features/gotoLocation/gotoLocationSlice'
 import achievementSlice from '../features/achievements/achievementSlice'
 import controlHistorialSlice from '../features/controlHistory/controlHistorialSlice'
 import historialListSlice from '../features/historialList/historialListSlice'; 
+import userLocationSlice from '../features/userLocation/userLocationSlice'
 //import loggedInReducer from '../features/logged/loggedInSlice'
 
 export const store = configureStore({
@@ -17,6 +18,7 @@ export const store = configureStore({
     achievement: achievementSlice,
     controlHistorial: controlHistorialSlice,
     historialList: historialListSlice,
+    userLocationSlice: userLocationSlice,
     //isLoggedIn: loggedInReducer
   },
 })

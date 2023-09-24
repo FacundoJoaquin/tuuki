@@ -5,8 +5,9 @@ import controlAlcohol from '../../assets/controlAlcohol.png'
 import controlGendarmeria from '../../assets/controlGendarmeria.png'
 import controlPapeles from '../../assets/controlPapeles.png'
 import SeeIcon from './SeeIcon';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { gotoLocation } from '../redux/features/gotoLocation/gotoLocationSlice';
+import { userLocation } from '../redux/features/userLocation/userLocationSlice';
 
 const getImageSource = (type) => {
     switch (type) {
@@ -32,7 +33,10 @@ const location = {
 
 const RenderHistorial = ({ data }) => {
     const [parsedHours, setParsedHours] = useState([]);
+    const userLocation = useSelector((state) => state.userLocationSlice);
     const dispatch = useDispatch()
+
+    useEffect(() => { console.log(userLocation); }, [userLocation])
 
     const handleSetLocationRedux = (control) => {
         location.latitude = control.createControl.latitude;
@@ -42,7 +46,6 @@ const RenderHistorial = ({ data }) => {
 
     useEffect(() => {
         const hourPromises = data.map((control) => control.parsedHour);
-
         Promise.all(hourPromises)
             .then((hours) => {
                 setParsedHours(hours);
@@ -52,21 +55,47 @@ const RenderHistorial = ({ data }) => {
             });
     }, [data]);
 
+    function haversineDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371; // Radio de la Tierra en kilómetros
+        const dLat = (lat2 - lat1) * (Math.PI / 180);
+        const dLon = (lon2 - lon1) * (Math.PI / 180);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distance = R * c; // Distancia en kilómetros
+        return distance;
+    }
+
+
+    // Define el radio máximo en kilómetros
+    const maxDistance = 40;
+
+    // Filtrar objetos que están dentro del radio de 40 kilómetros
+    const dataFilter = data.filter(objeto => {
+        const distancia = haversineDistance(
+            userLocation.latitude, // Latitud del usuario
+            userLocation.longitude, // Longitud del usuario
+            objeto.createControl.latitude,
+            objeto.createControl.longitude
+        );
+        return distancia <= maxDistance;
+    });
 
 
     return (
         <>
-            {data && data.length > 0 && data.map((control, index) => (
+            {dataFilter && dataFilter.length > 0 && dataFilter.map((control, index) => (
                 <div key={index} className='flex items-center justify-around my-2'>
                     <img src={getImageSource(control.createControl.type)} alt={control.type} className='w-8' />
                     <p className='text-xl font-bold '>{parsedHours[index]}</p>
                     <SeeIcon handleSetLocationRedux={handleSetLocationRedux} control={control} />
                 </div>
             ))}
-
         </>
     )
 }
+
 
 RenderHistorial.propTypes = {
     data: PropTypes.array.isRequired,

@@ -9,6 +9,7 @@ import { useState } from 'react';
 import Arrow from '../molecules/Arrow.jsx';
 import HelpIcon from '../atoms/HelpIcon.jsx';
 import Modal from '../organism/Modal.jsx';
+import MapClickHandler from '../molecules/MapClickHandler.jsx';
 
 const MapView = () => {
     const showModal = useSelector((state) => state.modal.modalState);
@@ -32,7 +33,7 @@ const MapView = () => {
     return (
         <div className='h-full overflow-hidden w-full relative'>
             <div className='absolute right-3 top-4 z-50 rounded-lg glass-container cursor-pointer' onClick={handleModalExplanation}><HelpIcon /></div>
-            <div className='h-full w-full px-2 pt-2 dark:bg-slate-800'>
+            <div className='h-full w-full px-2 pt-2 dark:bg-nmate-950'>
                 <Map />
                 {modalView === true && (
                     <ModalView onToggleContent={handleFaqsToggle} />

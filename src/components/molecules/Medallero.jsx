@@ -66,7 +66,7 @@ const Medallero = () => {
 
     return (
         <div className="w-full h-32 mt-6 xs:h-24 xs:mt-2">
-            <h1 className="text-center font-roboto text-2xl font-bold">LOGROS</h1>
+            <h1 className="text-center font-roboto text-2xl font-bold dark:text-nmate-200">LOGROS</h1>
             <div className="flex justify-evenly">
                 {loading ? (
                     <p>Cargando logros...</p>

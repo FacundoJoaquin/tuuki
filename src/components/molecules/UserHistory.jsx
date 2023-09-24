@@ -77,9 +77,9 @@ useEffect(() => {
 
     return (
         <div className="mt-20 flex justify-center xs:h-1/3">
-            <div className="h-full w-4/5 flex flex-col justify-center  shadow-xl p rounded-t-2xl rounded-b-2xl xxs:h-full xs:overflow-y-auto xs:mt-8 xxs:mt-0">
+            <div className="h-full w-4/5 flex flex-col justify-betweem dark:bg-nmate-800 shadow-xl p rounded-t-2xl rounded-b-2xl xxs:h-52 xs:overflow-y-auto xs:mt-8 xxs:mt-0">
                 <div>
-                    <h1 className="text-center text-2xl text-white rounded-t-2xl border-b-white bg-red-500 xs:text-xl dark:bg-slate-800 dark:border dark:py-1">
+                    <h1 className="text-center text-2xl text-white rounded-t-2xl border-b-white bg-red-500 xs:text-xl dark:bg-nmate-800 dark:border-b-2 dark:border-nmate-950 dark:py-1">
                         Historial de controles
                     </h1>
                 </div>

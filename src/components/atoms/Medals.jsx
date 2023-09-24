@@ -19,7 +19,7 @@ const Medals = ({ achieved, achievementData }) => {
 
 
     return (
-        <div className='border border-gray-200 p-2 shadow-2xl rounded-t-full rounded-b-full flex items-center justify-center flex-col gap-4 relative'>
+        <div className='border border-gray-200 dark:border-nmate-400 dark:bg-nmate-800 p-2 shadow-2xl rounded-t-full rounded-b-full flex items-center justify-center flex-col gap-4 relative'>
             <img src={imageSrc} className='h-12 my-1 xs:h-11' alt="" />
             <div className='absolute h-px bg-gray-300 w-full top-1/2 opacity-70'></div>
             <div className={`h-12 ${medalClass} xs:h-11`}>

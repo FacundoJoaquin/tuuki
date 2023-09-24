@@ -195,7 +195,7 @@ const FormControl = () => {
 			</div>
 			<form className="w-full h-full flex flex-col" onSubmit={(e) => handleSubmit(e)}>
 				<div className="flex flex-col justify-center">
-					<h3 className="text-lg text-center font-bold">CONFIRMAR CONTROL</h3>
+					<h3 className="text-lg text-center font-bold dark:text-nmate-200">CONFIRMAR CONTROL</h3>
 					<div className="flex justify-around">
 						<label className="relative">
 							<input
@@ -207,7 +207,7 @@ const FormControl = () => {
 								className="hidden"
 							/>
 							{selectedType === "controlCanino" &&
-								<div className="z-10 absolute bg-red-500 top-0 left-0 h-10 w-10 rounded-full " />}
+								<div className="z-10 absolute bg-red-500 dark:bg-nmate-400 dark:p-6 dark:-top-1 dark:-left-1 top-0 left-0 h-10 w-10 rounded-full " />}
 							<img
 								src={controles[0].controlCanino}
 								alt="controlCanino"
@@ -224,7 +224,7 @@ const FormControl = () => {
 								className="hidden"
 							/>
 							{selectedType === "controlPapeles" &&
-								<div className="z-10 absolute bg-red-500 top-0 left-0 h-10 w-10 rounded-full " />}
+								<div className="z-10 absolute bg-red-500 dark:bg-nmate-400 dark:p-6 dark:-top-1 dark:-left-1 top-0 left-0 h-10 w-10 rounded-full " />}
 							<img
 								src={controles[0].controlPapeles}
 								alt="controlPapeles"
@@ -241,7 +241,7 @@ const FormControl = () => {
 								className="hidden"
 							/>
 							{selectedType === "controlAlcohol" &&
-								<div className="z-10 absolute bg-red-500 top-0 left-0 h-10 w-10 rounded-full " />}
+								<div className="z-10 absolute bg-red-500 dark:bg-nmate-400 dark:p-6 dark:-top-1 dark:-left-1 top-0 left-0 h-10 w-10 rounded-full " />}
 							<img
 								src={controles[0].controlAlcohol}
 								alt="controlAlcohol"
@@ -258,7 +258,7 @@ const FormControl = () => {
 								className="hidden"
 							/>
 							{selectedType === "controlGendarmeria" &&
-								<div className="z-10 absolute bg-red-500 top-0 left-0 h-10 w-10 rounded-full " />}
+								<div className="z-10 absolute bg-red-500 dark:bg-nmate-400 dark:p-6 dark:-top-1 dark:-left-1 top-0 left-0 h-10 w-10 rounded-full " />}
 							<img
 								src={controles[0].controlGendarmeria}
 								alt="controlGendarmeria"
@@ -268,14 +268,14 @@ const FormControl = () => {
 					</div>
 				</div>
 				<div className="flex flex-col items-center mt-2">
-					<h3 className="text-lg text-center font-bold">Comentario</h3>
+					<h3 className="text-lg text-center font-bold dark:text-nmate-200">Comentario</h3>
 					<textarea rows={3}
-						className="h-24 w-2/3 p-2 rounded-xl my-2 border border-gray-200 shadow-lg"
+						className="h-24 w-2/3 p-2 rounded-xl my-2 border border-gray-200 dark:bg-nmate-950 dark:border-nmate-500 dark:text-white shadow-lg"
 						onChange={handleInputComment}
 					>
 
 					</textarea>
-					<button type="submit" className="w-2/3 bg-red-500 py-1 m-2 rounded border border-gray-300 text-white">Enviar</button>
+					<button type="submit" className="w-2/3 bg-red-500 py-1 m-2 rounded border border-gray-300 dark:border-none text-white">Enviar</button>
 				</div>
 			</form>
 		</div>
