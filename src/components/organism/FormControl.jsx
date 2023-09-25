@@ -8,6 +8,10 @@ import { collection, addDoc, serverTimestamp, getDocs, query, where, updateDoc, 
 import { db } from "../../firebase/firebaseConfig.js"
 import { updateAchievements } from "../redux/features/achievements/achievementSlice";
 import { incrementCounter } from "../redux/features/controlHistory/controlHistorialSlice";
+import controlCanino from "../../assets/controlCanino.png"
+import controlAlcohol from "../../assets/controlAlcohol.png"
+import controlPapeles from "../../assets/controlPapeles.png"
+import controlGendarmeria from "../../assets/controlGendarmeria.png"
 
 const marker = {
 	iconUrl: "",
@@ -140,26 +144,15 @@ const FormControl = () => {
 		}));
 	}, [comment]);
 
-	const rootPath = "/src/assets"; // Cambia esto a la ruta correcta en Netlify
 
 	const controles = [
 		{
-			controlCanino: `${rootPath}/${extractFileName("../../src/assets/controlCanino.png")}`,
-			controlPapeles: `${rootPath}/${extractFileName("../../src/assets/controlPapeles.png")}`,
-			controlAlcohol: `${rootPath}/${extractFileName("../../src/assets/controlAlcohol.png")}`,
-			controlGendarmeria: `${rootPath}/${extractFileName("../../src/assets/controlGendarmeria.png")}`,
+			controlCanino: "../../src/assets/controlCanino.png",
+			controlPapeles: "../../src/assets/controlPapeles.png",
+			controlAlcohol: "../../src/assets/controlAlcohol.png",
+			controlGendarmeria: "../../src/assets/controlGendarmeria.png",
 		},
 	];
-
-	function extractFileName(path) {
-		// Utiliza una expresión regular para extraer el nombre del archivo de la ruta
-		const matches = path.match(/\/([^/]+)$/);
-		if (matches && matches.length > 1) {
-			return matches[1];
-		}
-		// Si no se puede extraer el nombre, devuelve la ruta original
-		return path;
-	}
 
 
 
@@ -221,7 +214,7 @@ const FormControl = () => {
 							{selectedType === "controlCanino" &&
 								<div className="z-10 absolute bg-red-500 dark:bg-nmate-400 dark:p-6 dark:-top-1 dark:-left-1 top-0 left-0 h-10 w-10 rounded-full " />}
 							<img
-								src={controles[0].controlCanino}
+								src={controlCanino}
 								alt="controlCanino"
 								className="w-10 z-30 relative"
 							/>
@@ -238,7 +231,7 @@ const FormControl = () => {
 							{selectedType === "controlPapeles" &&
 								<div className="z-10 absolute bg-red-500 dark:bg-nmate-400 dark:p-6 dark:-top-1 dark:-left-1 top-0 left-0 h-10 w-10 rounded-full " />}
 							<img
-								src={controles[0].controlPapeles}
+								src={controlPapeles}
 								alt="controlPapeles"
 								className="w-10 z-30 relative"
 							/>
@@ -255,7 +248,7 @@ const FormControl = () => {
 							{selectedType === "controlAlcohol" &&
 								<div className="z-10 absolute bg-red-500 dark:bg-nmate-400 dark:p-6 dark:-top-1 dark:-left-1 top-0 left-0 h-10 w-10 rounded-full " />}
 							<img
-								src={controles[0].controlAlcohol}
+								src={controlAlcohol}
 								alt="controlAlcohol"
 								className="w-10 z-30 relative"
 							/>
@@ -272,7 +265,7 @@ const FormControl = () => {
 							{selectedType === "controlGendarmeria" &&
 								<div className="z-10 absolute bg-red-500 dark:bg-nmate-400 dark:p-6 dark:-top-1 dark:-left-1 top-0 left-0 h-10 w-10 rounded-full " />}
 							<img
-								src={controles[0].controlGendarmeria}
+								src={controlGendarmeria}
 								alt="controlGendarmeria"
 								className="w-10 z-30 relative"
 							/>
