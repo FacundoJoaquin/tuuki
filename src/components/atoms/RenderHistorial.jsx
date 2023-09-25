@@ -4,7 +4,6 @@ import controlCanino from '../../assets/controlCanino.png'
 import controlAlcohol from '../../assets/controlAlcohol.png'
 import controlGendarmeria from '../../assets/controlGendarmeria.png'
 import controlPapeles from '../../assets/controlPapeles.png'
-import SeeIcon from './SeeIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { gotoLocation } from '../redux/features/gotoLocation/gotoLocationSlice';
 import { userLocation } from '../redux/features/userLocation/userLocationSlice';

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'; // Asegúrate de importar PropTypes
+import PropTypes from 'prop-types'; 
 
 const BrandH1 = ({ children }) => {
   return (
@@ -6,9 +6,8 @@ const BrandH1 = ({ children }) => {
   );
 };
 
-// Agrega la validación de PropTypes
 BrandH1.propTypes = {
-  children: PropTypes.node.isRequired, // Esto valida que se pase una propiedad "children"
+  children: PropTypes.node.isRequired,
 };
 
 export default BrandH1;

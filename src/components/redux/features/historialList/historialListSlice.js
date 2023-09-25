@@ -9,7 +9,6 @@ export const historialListSlice = createSlice({
   initialState,
   reducers: {
     setHistorialList: (state, action) => {
-        // La acción setControls actualizará el estado con el array de controles proporcionado.
         state.controls = action.payload;
       },
   

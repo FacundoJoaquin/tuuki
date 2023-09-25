@@ -1,4 +1,3 @@
-import React from 'react'
 import Avatar from '../molecules/Avatar'
 import Medals from '../molecules/Medallero.jsx'
 import UserHistory from '../molecules/UserHistory.jsx'

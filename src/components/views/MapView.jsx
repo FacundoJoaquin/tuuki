@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import Arrow from '../molecules/Arrow.jsx';
 import HelpIcon from '../atoms/HelpIcon.jsx';
 import Modal from '../organism/Modal.jsx';
-import MapClickHandler from '../molecules/MapClickHandler.jsx';
 
 const MapView = () => {
     const showModal = useSelector((state) => state.modal.modalState);

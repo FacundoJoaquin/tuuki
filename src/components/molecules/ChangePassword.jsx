@@ -1,6 +1,5 @@
 import { getAuth, updatePassword } from "firebase/auth";
 import { useState } from "react";
-import Arrow from "./Arrow";
 import Modal from "../organism/Modal";
 import Check from "../../assets/check.png"
 

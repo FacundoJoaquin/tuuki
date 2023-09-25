@@ -5,11 +5,8 @@ import LogIn from "./components/organism/LogIn";
 import SignUp from "./components/organism/SignUp";
 import Welcome from "./components/views/Welcome";
 import MapView from "./components/views/MapView";
-import ProtectedRoute from "./components/utils/ProtectedRoute";
-import { useSessionStorage } from "react-use";
 import UserProfile from "./components/views/UserProfile";
 import Config from "./components/views/Config";
-import { useEffect } from "react";
 import PrivateRoutes from "./components/utils/PrivateRoutes";
 
 function App() {

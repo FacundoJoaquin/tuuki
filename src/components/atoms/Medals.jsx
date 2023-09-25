@@ -2,7 +2,7 @@ import MedalAcount from "../../assets/MedalAcount.png"
 import YellowStar from "../../assets/YellowStar.png"
 import comment from "../../assets/comment.png"
 import FirstPin from "../../assets/FirstPin.png"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "../organism/Modal";
 import ModalUser from "../molecules/ModalUser";
 
@@ -16,7 +16,6 @@ const Medals = ({ achieved, achievementData }) => {
 
 
 
-    //const imageSrc = achievementData.image;
     const { complete, key } = achievementData;
     let imageSrc
     if (key === 'firstLogin') {

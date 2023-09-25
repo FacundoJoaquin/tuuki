@@ -38,7 +38,6 @@ const SignUp = () => {
 			};
 			await setDoc(docRef, userData);
 		} catch (error) {
-			console.error("Error al crear el usuario:", error);
 		}
 	};
 
@@ -50,6 +49,8 @@ const SignUp = () => {
 				return "Por favor, ingresa una contraseña.";
 			case "auth/weak-password":
 				return "La contraseña debe tener al menos 6 caracteres.";
+			case "auth/email-already-in-use":
+				return "El email ya está en uso.";
 			default:
 				return "Error desconocido al registrarse.";
 		}
@@ -66,7 +67,6 @@ const SignUp = () => {
 			.catch((error) => {
 				const errorMessage = handleFirebaseError(error);
 				setErrorMessage(errorMessage);
-				console.log(error);
 			});
 	};
 

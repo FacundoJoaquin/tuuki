@@ -1,6 +1,6 @@
 import check from "../../assets/check.png"
 import ExitIcon from "../atoms/ExitIcon";
-import { Link } from "react-router-dom"; // Import useHistory
+import { Link } from "react-router-dom"; 
 
 const ModalNewUser = ({props}) => {
 

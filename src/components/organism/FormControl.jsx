@@ -154,9 +154,7 @@ const FormControl = () => {
 		const createdAt = serverTimestamp();
 		const achievementsToUpdate = {};
 		let updateNeeded = false;
-
 		if (createControl) {
-			// Actualiza firstControl solo si no estaba completo
 			if (!user[0]?.achievements.firstControl.complete) {
 				achievementsToUpdate['achievements.firstControl.complete'] = true;
 				updateNeeded = true;
@@ -167,8 +165,6 @@ const FormControl = () => {
 					}
 				}));
 			}
-
-			// Actualiza firstComment si existe un comentario y no estaba completo
 			if (createControl.comment && !user[0]?.achievements.firstComment.complete) {
 				achievementsToUpdate['achievements.firstComment.complete'] = true;
 				updateNeeded = true;
@@ -179,20 +175,15 @@ const FormControl = () => {
 					}
 				}));
 			}
-
-			// Si se necesita una actualización, actualiza el usuario en Firestore
 			if (updateNeeded) {
 				await updateDoc(doc(db, "users", user[0].id), achievementsToUpdate);
 			}
 		}
-
-		// PUSHEA EL CONTROL A FIRESTORE
 		const docRef = await addDoc(collection(db, "controles"), {
 			createControl,
 			timeStamp: createdAt,
 			userId: user[0]?.id,
 		});
-
 	};
 
 	return (

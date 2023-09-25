@@ -1,5 +1,3 @@
-import { useState } from "react"; // Importa useState
-import Arrow from "../molecules/Arrow";
 
 const Faqs = () => {
 
