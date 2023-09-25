@@ -15,14 +15,13 @@ const firebaseConfig = {
   appId: "1:959043521331:web:64da08fddb3de976a10c46",
 };
 
-
-
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
 
 export const auth = getAuth(app);
+
 
 /* createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {

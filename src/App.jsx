@@ -10,6 +10,7 @@ import { useSessionStorage } from "react-use";
 import UserProfile from "./components/views/UserProfile";
 import Config from "./components/views/Config";
 import { useEffect } from "react";
+import PrivateRoutes from "./components/utils/PrivateRoutes";
 
 function App() {
   return (
@@ -20,9 +21,11 @@ function App() {
             <Route path="/" element={<Welcome />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/login" element={<LogIn />} />
-            <Route path="/map" element={<MapView />} />
-            <Route path="/config" element={<Config />} />
-            <Route path="/user" element={<UserProfile />} />
+            <Route element={<PrivateRoutes />}>
+              <Route path="/map" element={<MapView />} />
+              <Route path="/config" element={<Config />} />
+              <Route path="/user" element={<UserProfile />} />
+            </Route>
           </Routes>
         </div>
         <div className="h-12  relative bottom-0">
