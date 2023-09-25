@@ -20,7 +20,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="bg-lw-50 z-50 border-t absolute bottom-0 left-0 w-full border-t-interfaz-200 h-12 dark:bg-nmate-900 dark:border-nmate-800 dark:border-t dark:border-0">
+        <nav className="bg-lw-50 z-40 border-t absolute bottom-0 left-0 w-full border-t-interfaz-200 h-12 dark:bg-nmate-900 dark:border-nmate-800 dark:border-t dark:border-0">
             <ul className="flex justify-center items-center h-full gap-6">
                 {iconsLeft.map((icon, index) => (
                     <li key={index}>{icon}</li>

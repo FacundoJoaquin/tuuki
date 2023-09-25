@@ -5,7 +5,7 @@ import "../organism/map.css";
 import FormControl from '../organism/FormControl.jsx';
 import ModalPresentation from '../organism/ModalPresentation.jsx';
 import ModalView from '../molecules/ModalView.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Arrow from '../molecules/Arrow.jsx';
 import HelpIcon from '../atoms/HelpIcon.jsx';
 import Modal from '../organism/Modal.jsx';
@@ -15,6 +15,17 @@ const MapView = () => {
     const showModal = useSelector((state) => state.modal.modalState);
     const [modalView, setModalView] = useState(false);
     const [modalExplanation, setModalExplanation] = useState(false);
+
+    const [darkMode, setDarkMode] = useState(false);
+
+    useEffect(() => {
+        const isDarkMode = localStorage.getItem("darkMode") === "true";
+        setDarkMode(isDarkMode);
+    }, []);
+    useEffect(() => {
+        document.documentElement.classList.toggle("dark", darkMode);
+        localStorage.setItem("darkMode", darkMode);
+    }, [darkMode]);
     const handleFaqsToggle = () => {
         setModalView(!modalView);
     };

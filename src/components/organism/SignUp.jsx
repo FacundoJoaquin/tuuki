@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { auth } from "../../firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth/cordova";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import { db } from "../../firebase/firebaseConfig.js";
 import { collection, doc, setDoc } from "firebase/firestore";
 import Modal from "./Modal";
 import ModalNewUser from "../molecules/ModalNewUser";
+
 const achievements = {
 	firstLogin: {
 		complete: true,
@@ -25,6 +26,8 @@ const SignUp = () => {
 	const [user, setUser] = useState("");
 	const [password, setPassword] = useState("");
 	const [modal, setModal] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
+
 	const setUserDoc = async (email) => {
 		try {
 			const docRef = doc(collection(db, "users"));
@@ -39,22 +42,37 @@ const SignUp = () => {
 		}
 	};
 
+	const handleFirebaseError = (error) => {
+		switch (error.code) {
+			case "auth/invalid-email":
+				return "Correo electrónico inválido.";
+			case "auth/missing-password":
+				return "Por favor, ingresa una contraseña.";
+			case "auth/weak-password":
+				return "La contraseña debe tener al menos 6 caracteres.";
+			default:
+				return "Error desconocido al registrarse.";
+		}
+	};
+
 	const SignUp = (e) => {
 		e.preventDefault();
 		createUserWithEmailAndPassword(auth, user, password)
 			.then((userCredential) => {
 				const userEmail = userCredential.user.email;
 				setUserDoc(userEmail);
+				setModal(true);
 			})
-			.then(setModal(true))
 			.catch((error) => {
+				const errorMessage = handleFirebaseError(error);
+				setErrorMessage(errorMessage);
 				console.log(error);
 			});
 	};
 
 	const handleModal = () => {
 		setModal(!modal);
-	}
+	};
 
 	return (
 		<div className="flex justify-center items-center w-screen h-full flex-col">
@@ -78,6 +96,9 @@ const SignUp = () => {
 						placeholder="Pone tu pass"
 						className=" border pl-1 w-44 border-gray-300 rounded outline-none focus:none"
 					/>
+					{errorMessage && (
+						<p className="text-red-500 text-sm text-bold">{errorMessage}</p>
+					)}
 					<button
 						type="submit"
 						className="relative top-2 border-t border-l border-b-red-400 border-b border-r px-3 border-red-600 bg-red-400 rounded-t-lg text-white"
@@ -92,11 +113,7 @@ const SignUp = () => {
 			>
 				¡Ya tengo una cuenta!
 			</Link>
-			{modal && (
-				<Modal>
-					<ModalNewUser props={handleModal}/>
-				</Modal>
-			)}
+			{modal && <Modal><ModalNewUser props={handleModal} /></Modal>}
 		</div>
 	);
 };

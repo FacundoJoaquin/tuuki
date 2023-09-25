@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 const SignIn = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
-
+  const [error, setError] = useState(false)
   const navigate = useNavigate()
 
   const SingIn = (e) => {
@@ -18,7 +18,8 @@ const SignIn = () => {
         navigate('/map');
       })
       .catch((error) => {
-        console.error(error);
+        console.error(error)
+        setError(true)
       });
   };
 
@@ -46,9 +47,11 @@ const SignIn = () => {
             />
 
           </span>
+            {error && (<p className="text-red-500 font-bold">Credenciales invalidas.</p>)}
           <button type="submit" className="relative top-2 border-t border-l border-b-red-400 border-b border-r px-3 border-red-600 bg-red-400 rounded-t-lg text-white">Log In</button>
         </form>
       </div>
+    
       <Link className="absolute right-0 bottom-12 text-sm text-red-500 font-bold font-roboto" to="/signup" >
         No tengo cuenta
       </Link>
