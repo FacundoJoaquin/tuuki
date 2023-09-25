@@ -140,14 +140,27 @@ const FormControl = () => {
 		}));
 	}, [comment]);
 
+	const rootPath = "/src/assets"; // Cambia esto a la ruta correcta en Netlify
+
 	const controles = [
 		{
-			controlCanino: "../../src/assets/controlCanino.png",
-			controlPapeles: "../../src/assets/controlPapeles.png",
-			controlAlcohol: "../../src/assets/controlAlcohol.png",
-			controlGendarmeria: "../../src/assets/controlGendarmeria.png",
+			controlCanino: `${rootPath}/${extractFileName("../../src/assets/controlCanino.png")}`,
+			controlPapeles: `${rootPath}/${extractFileName("../../src/assets/controlPapeles.png")}`,
+			controlAlcohol: `${rootPath}/${extractFileName("../../src/assets/controlAlcohol.png")}`,
+			controlGendarmeria: `${rootPath}/${extractFileName("../../src/assets/controlGendarmeria.png")}`,
 		},
 	];
+
+	function extractFileName(path) {
+		// Utiliza una expresión regular para extraer el nombre del archivo de la ruta
+		const matches = path.match(/\/([^/]+)$/);
+		if (matches && matches.length > 1) {
+			return matches[1];
+		}
+		// Si no se puede extraer el nombre, devuelve la ruta original
+		return path;
+	}
+
 
 
 
@@ -212,7 +225,6 @@ const FormControl = () => {
 								alt="controlCanino"
 								className="w-10 z-30 relative"
 							/>
-							{console.log(controles[0].controlCanino, controles[0].controlPapeles, controles[0].controlAlcohol, controles[0].controlGendarmeria)}
 						</label>
 						<label className="relative">
 							<input
