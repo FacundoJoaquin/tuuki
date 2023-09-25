@@ -49,7 +49,6 @@ const RenderHistorial = ({ data }) => {
                 setParsedHours(hours);
             })
             .catch((error) => {
-                console.error("Error", error);
             });
     }, [data]);
 

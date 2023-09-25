@@ -150,6 +150,7 @@ const FormControl = () => {
 	];
 
 
+
 	const handlePostControl = async () => {
 		const createdAt = serverTimestamp();
 		const achievementsToUpdate = {};
@@ -211,6 +212,7 @@ const FormControl = () => {
 								alt="controlCanino"
 								className="w-10 z-30 relative"
 							/>
+							{console.log(controles[0].controlCanino, controles[0].controlPapeles, controles[0].controlAlcohol, controles[0].controlGendarmeria)}
 						</label>
 						<label className="relative">
 							<input
