@@ -26,7 +26,6 @@ const UserHistory = () => {
     const fetchControls = async () => {
         let userId = sessionStorage.getItem("userId");
         const q = query(collection(db, "controles"), where("userId", "==", userId));
-        console.log('se fetchean los controles');
         try {
             const querySnapshot = await getDocs(q);
             const array = [];
@@ -41,11 +40,8 @@ const UserHistory = () => {
     };
 
 useEffect(() => {
-    // Verifica si ya tienes valores asignados en el estado de Redux
     const hasReduxValues = Object.values(globalControlCounts).some((count) => count > 0);
-    console.log(hasReduxValues);
     if (hasReduxValues == false) {
-      // Si no tienes valores en Redux, entonces fetchea los datos
       fetchControls();
     }
   }, [globalControlCounts]);

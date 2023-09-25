@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { auth } from "../../firebase/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth/cordova";
-import { Link } from "react-router-dom"; // Import useHistory
+import { Link } from "react-router-dom"; 
 import { db } from "../../firebase/firebaseConfig.js";
 import { collection, doc, setDoc } from "firebase/firestore";
 import Modal from "./Modal";
@@ -24,23 +24,16 @@ const achievements = {
 const SignUp = () => {
 	const [user, setUser] = useState("");
 	const [password, setPassword] = useState("");
-	const [modal, setModal] = useState(true);
+	const [modal, setModal] = useState(false);
 	const setUserDoc = async (email) => {
 		try {
-			// Crea un nuevo documento con un ID generado automáticamente
 			const docRef = doc(collection(db, "users"));
-
-			// Asigna el ID único al campo "id"
 			const userData = {
 				achievements: achievements,
 				email: email,
 				id: docRef.id,
 			};
-
-			// Agrega el documento a la colección
 			await setDoc(docRef, userData);
-
-			console.log("Usuario creado con ID único:", docRef.id);
 		} catch (error) {
 			console.error("Error al crear el usuario:", error);
 		}
@@ -53,7 +46,7 @@ const SignUp = () => {
 				const userEmail = userCredential.user.email;
 				setUserDoc(userEmail);
 			})
-			.finally(setModal(true))
+			.then(setModal(true))
 			.catch((error) => {
 				console.log(error);
 			});

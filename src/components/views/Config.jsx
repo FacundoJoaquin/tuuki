@@ -5,7 +5,6 @@ import Faqs from "../atoms/Faqs";
 import Feedback from "../molecules/Feedback";
 import SettingsContainer from "../molecules/SettingsContainer";
 import { useState } from "react";
-import Arrow from "../molecules/Arrow";
 
 const Config = () => {
   const [isArrowRotated, setIsArrowRotated] = useState(false);
@@ -26,15 +25,15 @@ const Config = () => {
         </div>
         <div onClick={handleContainerClick}>
           <SettingsContainer
-            title="Desea cambiar la contraseña"
-            answer={<ChangePassword />}
-          />
-        </div>
-        <div onClick={handleContainerClick}>
-          <SettingsContainer
             title="Feedback"
             answer={<Feedback />}
           />{" "}
+        </div>
+        <div onClick={handleContainerClick}>
+          <SettingsContainer
+            title="Modificar contraseña"
+            answer={<ChangePassword />}
+          />
         </div>
 
         <div onClick={handleContainerClick}>

@@ -8,9 +8,7 @@ import controlPapeles from '../../assets/controlPapeles.png';
 
 const RenderControls = ({ data }) => {
   const [controls, setControls] = useState([]);
-  useEffect(() => {
-    console.log(data);
-  },[data])
+
   const handleCreatePins = (controlsData) => {
     const mapPins = controlsData.map((control, index) => {
       const {

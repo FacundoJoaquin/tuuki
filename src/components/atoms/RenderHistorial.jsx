@@ -36,7 +36,6 @@ const RenderHistorial = ({ data }) => {
     const userLocation = useSelector((state) => state.userLocationSlice);
     const dispatch = useDispatch()
 
-    useEffect(() => { console.log(userLocation); }, [userLocation])
 
     const handleSetLocationRedux = (control) => {
         location.latitude = control.createControl.latitude;
@@ -56,26 +55,24 @@ const RenderHistorial = ({ data }) => {
     }, [data]);
 
     function haversineDistance(lat1, lon1, lat2, lon2) {
-        const R = 6371; // Radio de la Tierra en kilómetros
+        const R = 6371; 
         const dLat = (lat2 - lat1) * (Math.PI / 180);
         const dLon = (lon2 - lon1) * (Math.PI / 180);
         const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
             Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
             Math.sin(dLon / 2) * Math.sin(dLon / 2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        const distance = R * c; // Distancia en kilómetros
+        const distance = R * c;
         return distance;
     }
 
 
-    // Define el radio máximo en kilómetros
     const maxDistance = 40;
 
-    // Filtrar objetos que están dentro del radio de 40 kilómetros
     const dataFilter = data.filter(objeto => {
         const distancia = haversineDistance(
-            userLocation.latitude, // Latitud del usuario
-            userLocation.longitude, // Longitud del usuario
+            userLocation.latitude, 
+            userLocation.longitude,
             objeto.createControl.latitude,
             objeto.createControl.longitude
         );
@@ -86,10 +83,9 @@ const RenderHistorial = ({ data }) => {
     return (
         <>
             {dataFilter && dataFilter.length > 0 && dataFilter.map((control, index) => (
-                <div key={index} className='flex items-center justify-around my-2'>
+                <div key={index} className='flex items-center justify-center gap-x-6 my-2'>
                     <img src={getImageSource(control.createControl.type)} alt={control.type} className='w-8' />
                     <p className='text-xl font-bold '>{parsedHours[index]}</p>
-                    <SeeIcon handleSetLocationRedux={handleSetLocationRedux} control={control} />
                 </div>
             ))}
         </>

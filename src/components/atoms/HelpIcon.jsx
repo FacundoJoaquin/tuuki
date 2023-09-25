@@ -7,7 +7,7 @@ const HelpIcon = ({dark}) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`w-7 h-7 ${dark}`}
+      className={`w-9 h-9 ${dark}`}
     >
       <path
         strokeLinecap="round"

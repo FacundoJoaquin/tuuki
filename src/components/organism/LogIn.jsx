@@ -18,7 +18,7 @@ const SignIn = () => {
         navigate('/map');
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 

@@ -23,6 +23,8 @@ const FormControl = () => {
 	const [createControl, setCreateControl] = useState(marker);
 	const [selectedType, setSelectedType] = useState(true)
 	const [user, setUser] = useState({});
+	const [isValid, setIsValid] = useState(false);
+
 	const dispatch = useDispatch()
 
 	const handleModalClose = () => {
@@ -31,6 +33,7 @@ const FormControl = () => {
 
 	const handleControlType = (controlType) => {
 		setSelectedType(controlType);
+		setIsValid(true)
 		switch (controlType) {
 			case "controlCanino":
 				setCreateControl((prevCreateControl) => ({
@@ -116,6 +119,11 @@ const FormControl = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (!isValid) {
+			alert("Por favor, selecciona un tipo de control.");
+			return;
+		}
+
 		dispatch(updateControl(createControl))
 		handlePostControl(createControl);
 		dispatch(handleMarkers())
@@ -185,7 +193,6 @@ const FormControl = () => {
 			userId: user[0]?.id,
 		});
 
-		console.log("Document written with ID: ", docRef.id);
 	};
 
 	return (

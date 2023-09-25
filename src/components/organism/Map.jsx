@@ -8,12 +8,10 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import RenderLocation from "../atoms/RenderLocation";
 import RenderControls from "../atoms/RenderControls";
-import { control } from "leaflet";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { pinCreateControlFalse } from "../redux/features/pinCreateControl/pinCreateControlSlice";
 import check from "../../assets/check.png";
-import MapClickHandler from "../molecules/MapClickHandler";
 import { userLocation } from "../redux/features/userLocation/userLocationSlice";
 
 const Map = () => {
@@ -27,14 +25,10 @@ const Map = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("pinCreateControl", pinCreateControl);
-    // Obtén un array de los valores contenidos en el objeto
     const values = Object.values(pinCreateControl);
-    // Verifica si algún valor en el array es igual a true
     const isPinCreateControlTrue = values.includes(true);
 
     if (isPinCreateControlTrue) {
-      console.log("entramos");
       setModal(true);
     }
   }, [pinCreateControl]);
@@ -52,7 +46,6 @@ const Map = () => {
   const fetchControls = async () => {
     const now = new Date();
     const halfHour = new Date(now.getTime() - 30 * 60000);
-    //TRAE DE FIRESTORE LOS CONTROLES
     const q = query(
       collection(db, "controles"),
       where("timeStamp", ">", halfHour)
@@ -113,7 +106,6 @@ const Map = () => {
           zoom={16}
           className="z-10"
         >
-                      <MapClickHandler />
 
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           {shouldRenderLocation ? <RenderLocation location={location} /> : null}
@@ -136,7 +128,7 @@ const Map = () => {
             <p className="text-2xl font-bold dark:text-nmate-200">¡Control añadido con éxito!</p>
             <button
               onClick={handleCloseModal}
-              className="h-8 w-16 bg-gradient-to-t from-red-500 to-orange-400 text-white rounded-xl"
+              className="h-8 w-16 bg-gradient-to-t from-red-600 to-orange-400 text-white rounded-xl"
             >
               Ok
             </button>

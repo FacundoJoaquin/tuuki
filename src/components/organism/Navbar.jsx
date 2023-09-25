@@ -4,15 +4,16 @@ import MapPinIcon from "../atoms/MapPinIcon.jsx";
 import SettingsIcon from "../atoms/SettingsIcon.jsx";
 import UserLogo from "../atoms/UserLogo.jsx";
 import TrophyIcon from "../atoms/TrophyIcon.jsx";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toggleModal } from "../redux/features/showModal/modalSlice.js";
 
 const iconsLeft = [<Link to="/user"><UserLogo /></Link>, <Link to="/map"><MapIcon /></Link>];
-const iconsRight = [<Link to="/config"><SettingsIcon /></Link>, <TrophyIcon />, ] ;
+const iconsRight = [<Link to="/config"><SettingsIcon /></Link>, <TrophyIcon />,];
 
 const Navbar = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const handleModal = () => {
         dispatch(toggleModal());
@@ -24,7 +25,12 @@ const Navbar = () => {
                 {iconsLeft.map((icon, index) => (
                     <li key={index}>{icon}</li>
                 ))}
-                <li className="bg-red-500 dark:border-slate-800  border border-interfaz-400 rounded-full p-3 mb-3 relative bottom-1 " onClick={handleModal}>
+                <li className={` dark:border-slate-800  border border-interfaz-400 rounded-full p-3 mb-3 relative bottom-1 bg-red-500 ${location.pathname === "/map" ? "" : "grayscale"}`} onClick={() => {
+                    if (location.pathname === "/map") {
+                        handleModal();
+                    }
+                }}
+                >
                     <MapPinIcon />
                 </li>
                 {iconsRight.map((icon, index) => (

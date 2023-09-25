@@ -13,7 +13,6 @@ const Medallero = () => {
     const initialAchievementState = useSelector(state => state.achievement);
 
 
-
     const fetchUser = async () => {
         const userStorage = sessionStorage.getItem('user');
         const userObject = JSON.parse(userStorage);
